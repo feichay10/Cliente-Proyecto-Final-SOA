@@ -1,24 +1,16 @@
 #ifndef TCPTOSV_H
 #define TCPTOSV_H
 
-#include <QWidget>
+#include <QDialog>
 
-QT_BEGIN_NAMESPACE
 namespace Ui {
-class tcptosv;
+    class tcptosv : public QDialog
+    {
+        Q_OBJECT
+
+    public:
+       using QDialog::QDialog;
+    };
 }
-QT_END_NAMESPACE
-
-class tcptosv : public QWidget
-{
-    Q_OBJECT
-
-public:
-    explicit tcptosv(QWidget *parent = nullptr);
-    ~tcptosv();
-
-private:
-    Ui::tcptosv *ui;
-};
 
 #endif // TCPTOSV_H

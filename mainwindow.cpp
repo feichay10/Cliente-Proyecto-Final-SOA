@@ -18,6 +18,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionConnection_triggered()
 {
-    
+    Ui::tcptosv* test = new Ui::tcptosv();
+    test->show();
 }
-
