@@ -10,20 +10,19 @@ CONFIG += c++17
 
 SOURCES += \
     bbdd.cpp \
-    character.cpp \
-    insertcharacter.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    tcptoserver.cpp
 
 HEADERS += \
     bbdd.h \
-    character.h \
-    insertcharacter.h \
-    mainwindow.h
+    mainwindow.h \
+    tcptoserver.h
 
 FORMS += \
-    character.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    scheduler.ui \
+    tcpToServer.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -1428,7 +1428,8 @@
   </widget>
   <action name="actionSend">
    <property name="icon">
-    <iconset theme="mail-send"/>
+    <iconset theme="mail-send">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>Send image</string>
@@ -1442,7 +1443,8 @@
   </action>
   <action name="actionReceive">
    <property name="icon">
-    <iconset theme="insert-image"/>
+    <iconset theme="insert-image">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>Receive image</string>
@@ -1503,7 +1505,8 @@
   </action>
   <action name="actionConnection">
    <property name="icon">
-    <iconset theme="network-server"/>
+    <iconset theme="network-server">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>Connection</string>
@@ -1514,7 +1517,8 @@
   </action>
   <action name="actionRun_simulation_3">
    <property name="icon">
-    <iconset theme="media-playback-start"/>
+    <iconset theme="media-playback-start">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>Run simulation</string>
@@ -1522,7 +1526,8 @@
   </action>
   <action name="actionClear_graph">
    <property name="icon">
-    <iconset theme="user-trash"/>
+    <iconset theme="user-trash">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>Clear graph</string>
