@@ -11,15 +11,15 @@ CONFIG += c++17
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    tcptosv.cpp
+    svcon.cpp \
 
 HEADERS += \
     mainwindow.h \
-    tcptosv.h
+    svcon.h \
 
 FORMS += \
     mainwindow.ui \
-    tcptosv.ui
+    svcon.ui \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
