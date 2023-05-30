@@ -245,6 +245,18 @@
         <height>221</height>
        </size>
       </property>
+      <property name="toolTip">
+       <string>Delete row with SUPR/DEL</string>
+      </property>
+      <property name="whatsThis">
+       <string/>
+      </property>
+      <property name="accessibleName">
+       <string/>
+      </property>
+      <property name="accessibleDescription">
+       <string/>
+      </property>
       <column>
        <property name="text">
         <string>Name Task</string>
