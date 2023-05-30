@@ -1,18 +1,18 @@
 #ifndef ADDTASK_H
 #define ADDTASK_H
 
-#include <QWidget>
+#include <QMainWindow>
 
 namespace Ui {
 class AddTask;
 }
 
-class AddTask : public QWidget
+class AddTask : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit AddTask(QWidget *parent = nullptr);
+    explicit AddTask(QMainWindow *parent = nullptr);
     ~AddTask();
 
 private:
