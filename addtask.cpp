@@ -32,7 +32,7 @@ void AddTask::on_addTaskButton_clicked() {
 
   if (new_task_name != "" && (ptr->findItems(new_task_name, Qt::MatchExactly | Qt::MatchCaseSensitive).isEmpty())) {
     ptr->insertRow(ptr->rowCount());
-    ptr->setItem(ptr->rowCount() - 1, 0, new QTableWidgetItem(findChild<QLineEdit*>("lineEdit_name_task")->text()));
+    ptr->setItem(ptr->rowCount() - 1, 0, new QTableWidgetItem(new_task_name));
     ptr->setItem(ptr->rowCount() - 1, 1, new QTableWidgetItem(QString(std::to_string(findChild<QSpinBox*>("spinBox_time_of_task")->value()).c_str())));
     ptr->setItem(ptr->rowCount() - 1, 2, new QTableWidgetItem(QString(std::to_string(findChild<QSpinBox*>("spinBox_period")->value()).c_str())));
     ptr->setItem(ptr->rowCount() - 1, 3, new QTableWidgetItem(QString(std::to_string(findChild<QSpinBox*>("spinBox_deadline")->value()).c_str())));
