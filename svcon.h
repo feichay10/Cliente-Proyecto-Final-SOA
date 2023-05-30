@@ -1,19 +1,19 @@
 #ifndef SVCON_H
 #define SVCON_H
 
-#include <QWidget>
+#include <QMainWindow>
 #include <QCloseEvent>
 
 namespace Ui {
 class SvCon;
 }
 
-class SvCon : public QWidget
+class SvCon : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit SvCon(QWidget *parent = nullptr);
+    explicit SvCon(QMainWindow *parent = nullptr);
     ~SvCon();
 
 protected:
@@ -24,7 +24,7 @@ private slots:
 
 private:
     Ui::SvCon *ui;
-    QWidget* widget_mainWindow_; ///< It's neccesary to manipulate the main window from this object
+    QMainWindow* widget_mainWindow_; ///< It's neccesary to manipulate the main window from this object
 };
 
 #endif // SVCON_H

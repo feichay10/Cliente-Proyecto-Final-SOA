@@ -1,8 +1,8 @@
 #include "svcon.h"
 #include "ui_svcon.h"
 
-SvCon::SvCon(QWidget *parent) :
-    QWidget(parent),
+SvCon::SvCon(QMainWindow *parent) :
+    QMainWindow(parent),
     ui(new Ui::SvCon),
     widget_mainWindow_(parent)
 {
