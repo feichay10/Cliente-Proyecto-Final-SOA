@@ -31,7 +31,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>3</x>
@@ -245,11 +245,6 @@
         <height>221</height>
        </size>
       </property>
-      <row>
-       <property name="text">
-        <string>New Row</string>
-       </property>
-      </row>
       <column>
        <property name="text">
         <string>Name Task</string>
