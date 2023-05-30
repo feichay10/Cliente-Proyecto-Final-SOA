@@ -25,6 +25,7 @@ void MainWindow::closeEvent(QCloseEvent* event)
 
 void MainWindow::on_actionConnection_triggered() {
   SvCon* test = new SvCon(this);
+  test->setWindowTitle("Connect to Server");
   test->show();
 }
 
@@ -37,6 +38,7 @@ void MainWindow::on_actionExit_triggered()
 void MainWindow::on_actionAdd_task_triggered()
 {
   AddTask* test = new AddTask(this);
+  test->setWindowTitle("Task Adder");
   test->show();
   this->setEnabled(false);
   test->setEnabled(true);

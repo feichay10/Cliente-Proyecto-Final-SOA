@@ -12,17 +12,17 @@ SOURCES += \
     addtask.cpp \
     main.cpp \
     mainwindow.cpp \
-    svcon.cpp \
+    svcon.cpp
 
 HEADERS += \
     addtask.h \
     mainwindow.h \
-    svcon.h \
+    svcon.h
 
 FORMS += \
     addtask.ui \
     mainwindow.ui \
-    svcon.ui \
+    svcon.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
