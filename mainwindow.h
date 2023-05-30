@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMessageBox>
+#include <QCloseEvent>
 #include "svcon.h"
 #include "addtask.h"
 
@@ -17,6 +19,9 @@ class MainWindow : public QMainWindow {
  public:
   MainWindow(QWidget* parent = nullptr);
   ~MainWindow();
+
+ protected:
+  void closeEvent(QCloseEvent* event) override;
 
  private slots:
   void on_actionConnection_triggered();
