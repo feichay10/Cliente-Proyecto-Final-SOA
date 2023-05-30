@@ -16,3 +16,16 @@ void MainWindow::on_actionConnection_triggered() {
   SvCon* test = new SvCon(this);
   test->show();
 }
+
+void MainWindow::on_actionExit_triggered()
+{
+  close();
+}
+
+
+void MainWindow::on_actionAdd_task_triggered()
+{
+  AddTask* test = new AddTask(this);
+  test->show();
+}
+

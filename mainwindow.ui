@@ -939,7 +939,7 @@
     </property>
     <addaction name="actionSend_Image"/>
     <addaction name="actionReceive_Image"/>
-    <addaction name="actionExit_2"/>
+    <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -954,7 +954,7 @@
     </property>
     <addaction name="actionConfigure_simulation"/>
     <addaction name="actionAdd_task"/>
-    <addaction name="actionRun_simulation_2"/>
+    <addaction name="actionRun_simulation"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuSimulation"/>
@@ -1422,7 +1422,7 @@
    <addaction name="separator"/>
    <addaction name="actionConnection"/>
    <addaction name="separator"/>
-   <addaction name="actionRun_simulation_3"/>
+   <addaction name="actionRun_simulation_2"/>
    <addaction name="separator"/>
    <addaction name="actionClear_graph"/>
   </widget>
@@ -1468,16 +1468,6 @@
     <string>Exit</string>
    </property>
   </action>
-  <action name="actionRun_simulation">
-   <property name="text">
-    <string>Run simulation</string>
-   </property>
-  </action>
-  <action name="actionExit_2">
-   <property name="text">
-    <string>Exit</string>
-   </property>
-  </action>
   <action name="actionAbout_Cheddar">
    <property name="text">
     <string>About </string>
@@ -1498,7 +1488,7 @@
     <string>Add task</string>
    </property>
   </action>
-  <action name="actionRun_simulation_2">
+  <action name="actionRun_simulation">
    <property name="text">
     <string>Run simulation</string>
    </property>
@@ -1515,7 +1505,7 @@
     <string>Connection</string>
    </property>
   </action>
-  <action name="actionRun_simulation_3">
+  <action name="actionRun_simulation_2">
    <property name="icon">
     <iconset theme="media-playback-start">
      <normaloff>.</normaloff>.</iconset>

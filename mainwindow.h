@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "svcon.h"
+#include "addtask.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -20,7 +21,11 @@ class MainWindow : public QMainWindow {
  private slots:
   void on_actionConnection_triggered();
 
- private:
+     void on_actionExit_triggered();
+
+  void on_actionAdd_task_triggered();
+
+  private:
   Ui::MainWindow* ui;
 };
 #endif // MAINWINDOW_H
