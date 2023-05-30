@@ -20,7 +20,15 @@ protected:
     void closeEvent(QCloseEvent* event) override;
 
 private slots:
+    void on_closeButton_clicked();
+
+    void on_addTaskButton_clicked();
+
+    void on_cleanButton_clicked();
+
     void on_pushButton_clicked();
+
+    void on_tableWidget_cellClicked(int row, int column);
 
 private:
     Ui::AddTask *ui;

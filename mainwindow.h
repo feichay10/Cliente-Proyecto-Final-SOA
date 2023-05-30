@@ -28,9 +28,13 @@ class MainWindow : public QMainWindow {
 
      void on_actionExit_triggered();
 
-  void on_actionAdd_task_triggered();
+     void on_actionAbout_Cheddar_Client_triggered();
 
-  private:
+  void on_actionManual_triggered();
+
+     void on_actionTasks_triggered();
+
+ private:
   Ui::MainWindow* ui;
 };
 #endif // MAINWINDOW_H

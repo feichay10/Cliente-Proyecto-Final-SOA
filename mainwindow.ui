@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1333</width>
-    <height>599</height>
+    <width>1505</width>
+    <height>625</height>
    </rect>
   </property>
   <property name="palette">
@@ -458,36 +458,13 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>1030</x>
-      <y>510</y>
-      <width>41</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap>../../../../Descargas/logo-ull-1723770217.jpeg</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignBottom|Qt::AlignJustify</set>
-    </property>
-   </widget>
-  </widget>
+  <widget class="QWidget" name="centralwidget"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1333</width>
+     <width>1505</width>
      <height>22</height>
     </rect>
    </property>
@@ -935,25 +912,34 @@
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File</string>
+     <string>File Transferences</string>
     </property>
+    <addaction name="separator"/>
     <addaction name="actionSend_Image"/>
+    <addaction name="separator"/>
     <addaction name="actionReceive_Image"/>
-    <addaction name="actionExit"/>
+    <addaction name="separator"/>
+    <addaction name="actionConnection"/>
+    <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
      <string>Help</string>
     </property>
-    <addaction name="actionAbout_Cheddar"/>
+    <addaction name="separator"/>
+    <addaction name="separator"/>
+    <addaction name="actionAbout_Cheddar_Client"/>
+    <addaction name="separator"/>
     <addaction name="actionManual"/>
    </widget>
    <widget class="QMenu" name="menuSimulation">
     <property name="title">
      <string>Simulation</string>
     </property>
-    <addaction name="actionConfigure_simulation"/>
-    <addaction name="actionAdd_task"/>
+    <addaction name="separator"/>
+    <addaction name="separator"/>
+    <addaction name="actionTasks"/>
+    <addaction name="separator"/>
     <addaction name="actionRun_simulation"/>
    </widget>
    <addaction name="menuFile"/>
@@ -1425,6 +1411,8 @@
    <addaction name="actionRun_simulation_2"/>
    <addaction name="separator"/>
    <addaction name="actionClear_graph"/>
+   <addaction name="separator"/>
+   <addaction name="actionExit"/>
   </widget>
   <action name="actionSend">
    <property name="icon">
@@ -1454,41 +1442,63 @@
    </property>
   </action>
   <action name="actionSend_Image">
+   <property name="icon">
+    <iconset theme="mail-send">
+     <normaloff>.</normaloff>.</iconset>
+   </property>
    <property name="text">
     <string>Send image</string>
    </property>
   </action>
   <action name="actionReceive_Image">
+   <property name="icon">
+    <iconset theme="insert-image">
+     <normaloff>.</normaloff>.</iconset>
+   </property>
    <property name="text">
     <string>Receive Image</string>
    </property>
   </action>
   <action name="actionExit">
+   <property name="icon">
+    <iconset theme="application-exit">
+     <normaloff>.</normaloff>.</iconset>
+   </property>
    <property name="text">
     <string>Exit</string>
    </property>
   </action>
-  <action name="actionAbout_Cheddar">
+  <action name="actionAbout_Cheddar_Client">
+   <property name="icon">
+    <iconset theme="help-about"/>
+   </property>
    <property name="text">
-    <string>About </string>
+    <string>About Cheddar++ Client</string>
+   </property>
+   <property name="toolTip">
+    <string>About Cheddar Client</string>
    </property>
   </action>
   <action name="actionManual">
+   <property name="icon">
+    <iconset theme="help-contents"/>
+   </property>
    <property name="text">
     <string>Manual</string>
    </property>
   </action>
-  <action name="actionConfigure_simulation">
-   <property name="text">
-    <string>Configure simulation</string>
+  <action name="actionTasks">
+   <property name="icon">
+    <iconset theme="system-software-update"/>
    </property>
-  </action>
-  <action name="actionAdd_task">
    <property name="text">
-    <string>Add task</string>
+    <string>Tasks</string>
    </property>
   </action>
   <action name="actionRun_simulation">
+   <property name="icon">
+    <iconset theme="media-playback-start"/>
+   </property>
    <property name="text">
     <string>Run simulation</string>
    </property>

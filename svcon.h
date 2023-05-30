@@ -20,7 +20,7 @@ protected:
     void closeEvent(QCloseEvent* event) override;
 
 private slots:
-    void on_pushButton_clicked();
+    void on_closeButton_clicked();
 
 private:
     Ui::SvCon *ui;

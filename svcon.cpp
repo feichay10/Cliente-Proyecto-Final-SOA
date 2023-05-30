@@ -22,8 +22,11 @@ void SvCon::closeEvent(QCloseEvent *event)
     }
 }
 
-void SvCon::on_pushButton_clicked()
+void SvCon::on_closeButton_clicked()
 {
-
+    close();
+    if(widget_mainWindow_ != NULL) {
+        widget_mainWindow_->setEnabled(true);
+    }
 }
 
