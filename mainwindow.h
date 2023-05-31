@@ -24,17 +24,18 @@ class MainWindow : public QMainWindow {
   void closeEvent(QCloseEvent* event) override;
 
  private slots:
-  void on_actionConnection_triggered();
+    void on_actionConnection_triggered();
 
-     void on_actionExit_triggered();
+    void on_actionExit_triggered();
 
-     void on_actionAbout_Cheddar_Client_triggered();
+    void on_actionAbout_Cheddar_Client_triggered();
 
-  void on_actionManual_triggered();
+    void on_actionManual_triggered();
 
-     void on_actionTasks_triggered();
+    void on_actionTasks_triggered();
 
  private:
-  Ui::MainWindow* ui;
+    Ui::MainWindow* ui;
+     AddTask* tasks;
 };
 #endif // MAINWINDOW_H

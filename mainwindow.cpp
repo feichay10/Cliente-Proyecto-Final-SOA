@@ -2,9 +2,10 @@
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget* parent)
-  : QMainWindow(parent)
-  , ui(new Ui::MainWindow) {
-  ui->setupUi(this);
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow) {
+    ui->setupUi(this);
+    tasks = NULL;
 }
 
 MainWindow::~MainWindow() {
@@ -50,11 +51,14 @@ void MainWindow::on_actionManual_triggered()
 
 void MainWindow::on_actionTasks_triggered()
 {
-    AddTask* test = new AddTask(this);
-    test->setWindowTitle("Task Adder");
+    if (tasks == NULL) {
+      tasks = new AddTask(this);
+    }
 
-    test->show();
+    tasks->setWindowTitle("Task Adder");
+
+    tasks->show();
     this->setEnabled(false);
-    test->setEnabled(true);
+    tasks->setEnabled(true);
 }
 
