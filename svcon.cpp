@@ -42,7 +42,7 @@ void SvCon::on_start_disconnButton_clicked() {
     socket_to_sv->open(QIODevice::ReadWrite);
     QString port = std::to_string(findChild<QSpinBox*>("spinBox_port")->value()).c_str();
     findChild<QPushButton*>("start_disconnButton")->setText("Disconnect");
-    QMessageBox::information(this, windowTitle(), (socket_to_sv->isOpen()) ? ("Connected correctly to " + last_IP_text + ":" + port) : "Error when connecting");
+    QMessageBox::information(this, windowTitle(), (socket_to_sv->isOpen() && socket_to_sv->isValid()) ? ("Connected correctly with " + last_IP_text + ":" + port) : "Error when connecting");
 
   } else if (findChild<QPushButton*>("start_disconnButton")->text() == "Disconnect") {
     if (socket_to_sv != NULL) {
