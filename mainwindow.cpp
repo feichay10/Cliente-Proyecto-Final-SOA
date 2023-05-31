@@ -58,7 +58,7 @@ void MainWindow::on_actionTasks_triggered() {
 void MainWindow::on_actionSend_Image_triggered() {
   if (sv_conn != NULL && sv_conn->socket_to_sv != NULL && sv_conn->socket_to_sv->isOpen())
     sv_conn->socket_to_sv->write("HOLA DON PEPITO, HOLA DON JOSÉ :)");
-  else QMessageBox::information(this, windowTitle(), "There is no connection to server; go to Connection button, then try again...\nERROR: " + sv_conn->socket_to_sv->errorString());
+  else QMessageBox::information(this, "ERROR: Image cannot be sent correctly", "There is no connection to server; go to Connection button, then try again...\nERROR: " + sv_conn->socket_to_sv->errorString());
 }
 
 
@@ -66,7 +66,7 @@ void MainWindow::on_actionReceive_Image_triggered() {
   if (sv_conn != NULL && sv_conn->socket_to_sv != NULL && sv_conn->socket_to_sv->isOpen()) {
     ///receive some temporal answer from server
     QByteArray bytes = sv_conn->socket_to_sv->readAll();
-    QMessageBox::information(this, windowTitle(), bytes.toStdString().c_str());
+    QMessageBox::information(this, "ERROR: Image cannot be received correctly", bytes.toStdString().c_str());
   }
 }
 
