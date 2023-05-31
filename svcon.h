@@ -3,35 +3,40 @@
 
 #include <QMainWindow>
 #include <QCloseEvent>
-#include <QTcpSocket>
+#include <QtNetwork/QTcpSocket>
+#include <QtNetwork/QHostAddress>
+#include <QMessageBox>
+#include <QDebug>
+#include <QString>
+#include <regex>
+#include <QByteArray>
 
 namespace Ui {
 class SvCon;
 }
 
-class SvCon : public QMainWindow
-{
-    Q_OBJECT
+class SvCon : public QMainWindow {
+  Q_OBJECT
+  friend class MainWindow;
+ public:
+  explicit SvCon(QMainWindow* parent = nullptr);
+  ~SvCon();
 
-public:
-    explicit SvCon(QMainWindow *parent = nullptr);
-    ~SvCon();
+ protected:
+  void closeEvent(QCloseEvent* event) override;
 
-    // Methods of TCP
+ private slots:
+  void on_closeButton_clicked();
 
-protected:
-    void closeEvent(QCloseEvent* event) override;
+  void on_start_disconnButton_clicked();
 
-private slots:
-    void on_closeButton_clicked();
+  void on_lineEdit_ServerIP_textChanged(const QString& arg1);
 
-    void on_startButton_clicked();
-
-private:
-    Ui::SvCon *ui;
-    QMainWindow* widget_mainWindow_; ///< It's neccesary to manipulate the main window from this object
-    QTcpSocket* socket;
-
+ private:
+  Ui::SvCon* ui;
+  QMainWindow* widget_mainWindow_; ///< It's neccesary to manipulate the main window from this object
+  QTcpSocket* socket_to_sv;
+  QString last_IP_text;
 };
 
 #endif // SVCON_H
