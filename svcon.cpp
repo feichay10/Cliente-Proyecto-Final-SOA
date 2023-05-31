@@ -48,7 +48,7 @@ void SvCon::on_start_disconnButton_clicked() {
     if (socket_to_sv != NULL) {
       socket_to_sv->close();
       delete socket_to_sv;
-      socket_to_sv = NULL;
+      socket_to_sv = NULL; //
     }
 
     findChild<QPushButton*>("start_disconnButton")->setText("Start");
