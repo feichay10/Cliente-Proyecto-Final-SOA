@@ -30,3 +30,9 @@ void SvCon::on_closeButton_clicked()
     }
 }
 
+
+void SvCon::on_startButton_clicked()
+{
+
+}
+
