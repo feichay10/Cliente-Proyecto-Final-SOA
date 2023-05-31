@@ -1402,9 +1402,9 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionSend"/>
+   <addaction name="actionSend_Image"/>
    <addaction name="separator"/>
-   <addaction name="actionReceive"/>
+   <addaction name="actionReceive_Image"/>
    <addaction name="separator"/>
    <addaction name="actionConnection"/>
    <addaction name="separator"/>
@@ -1414,33 +1414,6 @@
    <addaction name="separator"/>
    <addaction name="actionExit"/>
   </widget>
-  <action name="actionSend">
-   <property name="icon">
-    <iconset theme="mail-send">
-     <normaloff>.</normaloff>.</iconset>
-   </property>
-   <property name="text">
-    <string>Send image</string>
-   </property>
-   <property name="toolTip">
-    <string>Send image</string>
-   </property>
-   <property name="shortcut">
-    <string/>
-   </property>
-  </action>
-  <action name="actionReceive">
-   <property name="icon">
-    <iconset theme="insert-image">
-     <normaloff>.</normaloff>.</iconset>
-   </property>
-   <property name="text">
-    <string>Receive image</string>
-   </property>
-   <property name="toolTip">
-    <string>Receive image</string>
-   </property>
-  </action>
   <action name="actionSend_Image">
    <property name="icon">
     <iconset theme="mail-send">

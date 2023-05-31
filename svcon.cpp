@@ -57,11 +57,10 @@ void SvCon::on_start_disconnButton_clicked() {
 }
 
 
-void SvCon::on_lineEdit_ServerIP_textChanged(const QString& arg1) {
+void SvCon::on_lineEdit_ServerIP_textChanged(const QString& user_string_ip) {
   std::regex good_IP("((25[0-5]|2[0-4][0-9]|[01]?[0-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]?[0-9])\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]?[0-9]))?");
 
-  if (!std::regex_match(arg1.toStdString(), good_IP)) findChild<QLineEdit*>("lineEdit_ServerIP")->setText(last_IP_text);
+  if (!std::regex_match(user_string_ip.toStdString(), good_IP)) findChild<QLineEdit*>("lineEdit_ServerIP")->setText(last_IP_text);
 
-  else last_IP_text = arg1;
+  else last_IP_text = user_string_ip;
 }
-
