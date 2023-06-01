@@ -1455,7 +1455,7 @@
   </action>
   <action name="actionManual">
    <property name="icon">
-    <iconset theme="help-contents">
+    <iconset theme="accessories-dictionary">
      <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">

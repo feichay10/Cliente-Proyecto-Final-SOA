@@ -30,7 +30,7 @@ class AddTask : public QMainWindow {
 
   void on_tableWidget_cellClicked(int row, int column);
 
- private:
+  private:
   Ui::AddTask* ui;
   QMainWindow* mainWindow_; ///< It's neccesary to manipulate the main window from this object
 };
