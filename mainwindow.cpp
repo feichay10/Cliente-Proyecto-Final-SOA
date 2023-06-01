@@ -16,7 +16,6 @@ MainWindow::~MainWindow() {
 
 void MainWindow::closeEvent(QCloseEvent* event) {
   if (isEnabled()) event->accept();
-
   else event->ignore();
 }
 
@@ -54,12 +53,30 @@ void MainWindow::on_actionTasks_triggered() {
   tasks->setEnabled(true);
 }
 
+// // Abrir archivo de foto
+//QString nameFile = QFileDialog::getOpenFileName(this, "Abrir imagen", QDir::rootPath(), "Imágenes (*.png *.jpg *.jpeg);;Cualquier archivo(*.*)");
+//ui->lineEdit_image->setText(nameFile);
+//QPixmap pixmap(ui->lineEdit_image->text());
+// // set a scaled pixmap
+//ui->imageLabel->resize(pixmap.width(), pixmap.height());
+//ui->imageLabel->setPixmap(pixmap.scaled(pixmap.width(),pixmap.height(),Qt::KeepAspectRatio));
+
 
 void MainWindow::on_actionSend_Image_triggered() {
-  if (sv_conn != NULL && sv_conn->socket_to_sv != NULL && sv_conn->socket_to_sv->isOpen())
-    sv_conn->socket_to_sv->write("HOLA DON PEPITO, HOLA DON JOSÉ :)");
-
-  else QMessageBox::information(this, "ERROR: Image cannot be sent correctly", "There is no connection to server; go to Connection button, then try again...");
+  if (sv_conn != NULL && sv_conn->socket_to_sv != NULL && sv_conn->socket_to_sv->isOpen()) {
+    // sv_conn->socket_to_sv->write("HOLA DON PEPITO, HOLA DON JOSÉ :)");
+    /// The cliente select the image
+    QString imagePath = QFileDialog::getOpenFileName(this, "Select image to send to server", QDir::homePath(), "Images (*.png *.jpg *.jpeg);;Any file(*.*)");
+    if (!imagePath.isEmpty()) {
+      QImage imageToServer(imagePath); ///< We store the image correctly from the file system
+      QByteArray byteArrayImage;
+      QBuffer bufferImage(&byteArrayImage);
+      bufferImage.open(QIODevice::WriteOnly);
+      imageToServer.save(&bufferImage, "JPEG"); ///< We store the image in the "bufferImage" as a "JPEG" to be sent to server
+      sv_conn->socket_to_sv->write(byteArrayImage);
+    }
+  }
+  else QMessageBox::critical(this, "ERROR: Image cannot be sent correctly", "There is no connection to server; go to Connection button, then try again...");
 }
 
 
@@ -69,6 +86,5 @@ void MainWindow::on_actionReceive_Image_triggered() {
     QByteArray bytes = sv_conn->socket_to_sv->readAll();
     QMessageBox::information(this, "Server response", bytes.toStdString().c_str());
 
-  } else QMessageBox::information(this, "ERROR: Image cannot be received correctly", "Nothing can be received; check Connection button, then try again...");
+  } else QMessageBox::critical(this, "ERROR: Image cannot be received correctly", "Nothing can be received; check Connection button, then try again...");
 }
-

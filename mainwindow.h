@@ -4,6 +4,11 @@
 #include <QMainWindow>
 #include <QMessageBox>
 #include <QCloseEvent>
+#include <QFileDialog>
+#include <QString>
+#include <QImage>
+#include <QBuffer>
+#include <QLabel>
 #include "svcon.h"
 #include "addtask.h"
 
@@ -38,7 +43,7 @@ class MainWindow : public QMainWindow {
 
   void on_actionReceive_Image_triggered();
 
- private:
+  private:
   Ui::MainWindow* ui;
   SvCon* sv_conn;
   AddTask* tasks;
