@@ -47,20 +47,20 @@ void SvCon::on_start_disconnButton_clicked() {
       socket_to_sv->connectToHost(QHostAddress(last_IP_text), findChild<QSpinBox*>("spinBox_port")->value());
       socket_to_sv->open(QIODevice::ReadWrite);
       QString port = std::to_string(findChild<QSpinBox*>("spinBox_port")->value()).c_str();
-      findChild<QPushButton*>("start_disconnButton")->setText("Disconnect");
+      ui->start_disconnButton->setText("Disconnect");
       QMessageBox::information(this, "Server connection", (socket_to_sv->isOpen() && socket_to_sv->isValid()) ? ("Connected correctly with " + last_IP_text + ":" + port) : "Error when connecting");
 
     } else
       QMessageBox::information(this, "Error: Wrong IP", "The IP given is wrong, change it and try again");
 
-  } else if (findChild<QPushButton*>("start_disconnButton")->text() == "Disconnect") {
+  } else if (ui->start_disconnButton->text() == "Disconnect") {
     if (socket_to_sv != NULL) {
       socket_to_sv->close();
       delete socket_to_sv;
       socket_to_sv = NULL;
     }
 
-    findChild<QPushButton*>("start_disconnButton")->setText("Start");
+    ui->start_disconnButton->setText("Start");
     QMessageBox::information(this, windowTitle(), "Disconnected from server");
   }
 }
