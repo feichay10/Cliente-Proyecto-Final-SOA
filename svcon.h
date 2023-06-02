@@ -9,6 +9,7 @@
 #include <QDebug>
 #include <QString>
 #include <regex>
+#include <QClipboard>
 #include <QByteArray>
 
 namespace Ui {
@@ -21,6 +22,7 @@ class SvCon : public QMainWindow {
  public:
   explicit SvCon(QMainWindow* parent = nullptr);
   ~SvCon();
+  bool eventFilter(QObject* obj, QEvent* event) override;
 
  protected:
   void closeEvent(QCloseEvent* event) override;
