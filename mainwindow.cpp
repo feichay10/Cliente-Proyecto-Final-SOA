@@ -79,11 +79,11 @@ void MainWindow::on_actionSend_Image_triggered() {
       QString imagePath = QFileDialog::getOpenFileName(this, "Select image to send to server", QDir::homePath(), "Images (*.png *.jpg *.jpeg);;Any file(*.*)");
 
       if (!imagePath.isEmpty()) {
-        QImage imageToServer(imagePath); ///< We store the image correctly from the file system
+        QImage image_to_server(imagePath); ///< We store the image correctly from the file system
         QByteArray byteArrayImage;
         QBuffer bufferImage(&byteArrayImage);
         bufferImage.open(QIODevice::WriteOnly);
-        imageToServer.save(&bufferImage, "JPEG"); ///< We store the image in the "bufferImage" as a "JPEG" to be sent to server
+        image_to_server.save(&bufferImage, "JPEG"); ///< We store the image in the "bufferImage" as a "JPEG" to be sent to server
         sv_conn->socket_to_sv->write(byteArrayImage);
         sv_conn->socket_to_sv->waitForBytesWritten();
       }
@@ -98,8 +98,24 @@ void MainWindow::on_actionSend_Image_triggered() {
 void MainWindow::on_actionReceive_Image_triggered() {
   if (sv_conn != NULL && sv_conn->socket_to_sv != NULL && sv_conn->socket_to_sv->isOpen()) {
     ///receive some temporal answer from server
-    QByteArray bytes = sv_conn->socket_to_sv->readAll();
-    QMessageBox::information(this, "Server response", bytes.toStdString().c_str());
+    QByteArray message_from_server;
+    sv_conn->socket_to_sv->write("RECEIVE_IMG");
+    sv_conn->socket_to_sv->flush();
+    sv_conn->socket_to_sv->waitForBytesWritten();
+    sv_conn->socket_to_sv->waitForReadyRead();
 
+    while (sv_conn->socket_to_sv->bytesAvailable() > 0)
+      message_from_server = sv_conn->socket_to_sv->readAll();
+
+    QImage image_from_server;
+    bool delivery_success = image_from_server.loadFromData(message_from_server);
+    if (delivery_success) {
+      ui->lineEdit->setText("Server sent this image:");
+      QPixmap pixmap_image_server = QPixmap::fromImage(image_from_server);
+      ui->label_image_received_from_server->resize(pixmap_image_server.width(), pixmap_image_server.height());
+      ui->label_image_received_from_server->setPixmap(pixmap_image_server);
+
+    } else
+      QMessageBox::critical(this, "Error: Cannot be able to get the image", "The image from server had some problems to be read");
   } else QMessageBox::critical(this, "ERROR: Image cannot be received correctly", "Nothing can be received; check Connection button, then try again...");
 }
