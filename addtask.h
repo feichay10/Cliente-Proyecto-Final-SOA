@@ -10,7 +10,7 @@ class AddTask;
 
 class AddTask : public QMainWindow {
   Q_OBJECT
-
+    friend class MainWindow;
  public:
   explicit AddTask(QMainWindow* parent = nullptr);
   ~AddTask();

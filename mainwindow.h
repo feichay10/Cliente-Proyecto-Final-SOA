@@ -9,6 +9,7 @@
 #include <QImage>
 #include <QBuffer>
 #include <QLabel>
+#include <QTextStream>
 #include "svcon.h"
 #include "addtask.h"
 
@@ -20,7 +21,6 @@ QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow {
   Q_OBJECT
-
  public:
   MainWindow(QWidget* parent = nullptr);
   ~MainWindow();

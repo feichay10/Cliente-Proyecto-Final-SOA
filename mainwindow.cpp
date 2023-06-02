@@ -64,16 +64,24 @@ void MainWindow::on_actionTasks_triggered() {
 
 void MainWindow::on_actionSend_Image_triggered() {
   if (sv_conn != NULL && sv_conn->socket_to_sv != NULL && sv_conn->socket_to_sv->isOpen()) {
-    // sv_conn->socket_to_sv->write("HOLA DON PEPITO, HOLA DON JOSÉ :)");
-    /// The cliente select the image
-    QString imagePath = QFileDialog::getOpenFileName(this, "Select image to send to server", QDir::homePath(), "Images (*.png *.jpg *.jpeg);;Any file(*.*)");
-    if (!imagePath.isEmpty()) {
-      QImage imageToServer(imagePath); ///< We store the image correctly from the file system
-      QByteArray byteArrayImage;
-      QBuffer bufferImage(&byteArrayImage);
-      bufferImage.open(QIODevice::WriteOnly);
-      imageToServer.save(&bufferImage, "JPEG"); ///< We store the image in the "bufferImage" as a "JPEG" to be sent to server
-      sv_conn->socket_to_sv->write(byteArrayImage);
+    sv_conn->socket_to_sv->write("SEND_IMG");
+    sv_conn->socket_to_sv->waitForBytesWritten();
+    QByteArray server_response = sv_conn->socket_to_sv->readAll();
+    QMessageBox::information(this, "puta", server_response.toStdString().c_str());
+    if (server_response.toStdString() == "OK") {
+        /// The cliente select the image
+        QString imagePath = QFileDialog::getOpenFileName(this, "Select image to send to server", QDir::homePath(), "Images (*.png *.jpg *.jpeg);;Any file(*.*)");
+        if (!imagePath.isEmpty()) {
+            QImage imageToServer(imagePath); ///< We store the image correctly from the file system
+            QByteArray byteArrayImage;
+            QBuffer bufferImage(&byteArrayImage);
+            bufferImage.open(QIODevice::WriteOnly);
+            imageToServer.save(&bufferImage, "JPEG"); ///< We store the image in the "bufferImage" as a "JPEG" to be sent to server
+            sv_conn->socket_to_sv->write(byteArrayImage);
+            sv_conn->socket_to_sv->waitForBytesWritten();
+        }
+    } else {
+        QMessageBox::critical(this, "ERROR: Server does not respose", "Server could not receive the image");
     }
   }
   else QMessageBox::critical(this, "ERROR: Image cannot be sent correctly", "There is no connection to server; go to Connection button, then try again...");
