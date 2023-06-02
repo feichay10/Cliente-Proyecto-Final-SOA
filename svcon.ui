@@ -28,13 +28,13 @@
   <property name="windowTitle">
    <string>Server to Connection</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>459</width>
-     <height>63</height>
+     <width>480</width>
+     <height>64</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -48,7 +48,11 @@
        </widget>
       </item>
       <item>
-       <widget class="QSpinBox" name="spinBox_IP_1"/>
+       <widget class="QSpinBox" name="spinBox_IP_1">
+        <property name="maximum">
+         <number>255</number>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_2">
@@ -58,7 +62,11 @@
        </widget>
       </item>
       <item>
-       <widget class="QSpinBox" name="spinBox_IP_2"/>
+       <widget class="QSpinBox" name="spinBox_IP_2">
+        <property name="maximum">
+         <number>255</number>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_3">
@@ -68,7 +76,11 @@
        </widget>
       </item>
       <item>
-       <widget class="QSpinBox" name="spinBox_IP_3"/>
+       <widget class="QSpinBox" name="spinBox_IP_3">
+        <property name="maximum">
+         <number>255</number>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_5">
@@ -78,7 +90,11 @@
        </widget>
       </item>
       <item>
-       <widget class="QSpinBox" name="spinBox_IP_4"/>
+       <widget class="QSpinBox" name="spinBox_IP_4">
+        <property name="maximum">
+         <number>255</number>
+        </property>
+       </widget>
       </item>
       <item>
        <spacer name="horizontalSpacer">

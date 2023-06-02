@@ -32,13 +32,11 @@ class SvCon : public QMainWindow {
 
   void on_start_disconnButton_clicked();
 
-  void on_lineEdit_ServerIP_textChanged(const QString& arg1);
 
  private:
   Ui::SvCon* ui;
   QMainWindow* widget_mainWindow_; ///< It's neccesary to manipulate the main window from this object
   QTcpSocket* socket_to_sv;
-  QString last_IP_text;
 };
 
 #endif // SVCON_H
