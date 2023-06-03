@@ -43,6 +43,8 @@ class MainWindow : public QMainWindow {
 
   void on_actionReceive_Image_triggered();
 
+  void on_actionRun_simulation_triggered();
+
   private:
   Ui::MainWindow* ui;
   SvCon* sv_conn;

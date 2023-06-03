@@ -1432,7 +1432,7 @@
    <addaction name="separator"/>
    <addaction name="actionConnection"/>
    <addaction name="separator"/>
-   <addaction name="actionRun_simulation_2"/>
+   <addaction name="actionRun_simulation"/>
    <addaction name="separator"/>
    <addaction name="actionClear_graph"/>
    <addaction name="separator"/>
@@ -1495,15 +1495,6 @@
     <string>Tasks</string>
    </property>
   </action>
-  <action name="actionRun_simulation">
-   <property name="icon">
-    <iconset theme="media-playback-start">
-     <normaloff>.</normaloff>.</iconset>
-   </property>
-   <property name="text">
-    <string>Run simulation</string>
-   </property>
-  </action>
   <action name="actionConnection">
    <property name="icon">
     <iconset theme="network-server">
@@ -1516,7 +1507,7 @@
     <string>Connection</string>
    </property>
   </action>
-  <action name="actionRun_simulation_2">
+  <action name="actionRun_simulation">
    <property name="icon">
     <iconset theme="media-playback-start">
      <normaloff>.</normaloff>.</iconset>

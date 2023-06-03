@@ -119,3 +119,8 @@ void MainWindow::on_actionReceive_Image_triggered() {
       QMessageBox::critical(this, "Error: Cannot be able to get the image", "The image from server had some problems to be read");
   } else QMessageBox::critical(this, "ERROR: Image cannot be received correctly", "Nothing can be received; check Connection button, then try again...");
 }
+
+void MainWindow::on_actionRun_simulation_triggered()
+{
+
+}

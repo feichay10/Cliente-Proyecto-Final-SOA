@@ -3,7 +3,6 @@
 
 #include <Qvector>
 #include <QString>
-//#include <QCustomPlot>
 
 class RMAlgorithm
 {
@@ -12,9 +11,10 @@ public:
 
     void calculatePriorities();
     bool rateMonotonic(int numTasks, int timeTask, int period, int deadline);
-    int rmGarantyTest(int n, QString nameTask, int timeOfTask, int period, int deadline);
+    bool rmGarantyTest(int n, QString nameTask, int timeOfTask, int period, int deadline);
 
 private:
+    // Temporarily table
     struct Task {
         int timeTask;
         int period;
