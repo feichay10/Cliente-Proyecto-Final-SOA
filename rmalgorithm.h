@@ -1,30 +1,31 @@
 #ifndef RMALGORITHM_H
 #define RMALGORITHM_H
 
-#include <Qvector>
+#include <QVector>
 #include <QString>
+#include <QTableWidget>
+#include <QMessageBox>
+#include <QDebug>
+#include <iostream>
 
-class RMAlgorithm
-{
-public:
-    RMAlgorithm();
+struct Task {
+  QString name;
+  int timeTask;
+  int period;
+  int deadline;
+};
 
-    void calculatePriorities();
-    bool rateMonotonic(int numTasks, int timeTask, int period, int deadline);
-    bool rmGarantyTest(int n, QString nameTask, int timeOfTask, int period, int deadline);
+class RMAlgorithm {
+ public:
+  RMAlgorithm(QTableWidget* tableTasks = NULL);
 
-private:
-    // Temporarily table
-    struct Task {
-        int timeTask;
-        int period;
-        int deadline;
-    }
+  bool rateMonotonic(void); ///< true = algorithm success
+  bool isSchedulable(void);
 
-    QVector<Task> tasks;
-
-    float worst_case;
-    float utilization;
+ private:
+  QVector<Task> tasks_;
+  double worst_case_;
+  double utilization_;
 };
 
 #endif // RMALGORITHM_H

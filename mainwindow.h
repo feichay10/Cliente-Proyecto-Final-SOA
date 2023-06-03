@@ -12,6 +12,7 @@
 #include <QTextStream>
 #include "svcon.h"
 #include "addtask.h"
+#include "rmalgorithm.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -30,22 +31,15 @@ class MainWindow : public QMainWindow {
 
  private slots:
   void on_actionConnection_triggered();
-
   void on_actionExit_triggered();
-
   void on_actionAbout_Cheddar_Client_triggered();
-
   void on_actionManual_triggered();
-
   void on_actionTasks_triggered();
-
   void on_actionSend_Image_triggered();
-
   void on_actionReceive_Image_triggered();
-
   void on_actionRun_simulation_triggered();
 
-  private:
+ private:
   Ui::MainWindow* ui;
   SvCon* sv_conn;
   AddTask* tasks;

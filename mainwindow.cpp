@@ -122,5 +122,5 @@ void MainWindow::on_actionReceive_Image_triggered() {
 
 void MainWindow::on_actionRun_simulation_triggered()
 {
-
+  RMAlgorithm rm_algorithm(findChild<QTableWidget*>("tableWidget"));
 }
