@@ -12,11 +12,13 @@ SOURCES += \
     addtask.cpp \
     main.cpp \
     mainwindow.cpp \
+    rmalgorithm.cpp \
     svcon.cpp
 
 HEADERS += \
     addtask.h \
     mainwindow.h \
+    rmalgorithm.h \
     svcon.h
 
 FORMS += \
