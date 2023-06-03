@@ -19,13 +19,11 @@ class RMAlgorithm {
  public:
   RMAlgorithm(QTableWidget* tableTasks = NULL);
 
-  bool rateMonotonic(void); ///< true = algorithm success
-  bool isSchedulable(void);
+  void rateMonotonic(void);
+  int garantyTest(void);
 
  private:
   QVector<Task> tasks_;
-  double worst_case_;
-  double utilization_;
 };
 
 #endif // RMALGORITHM_H

@@ -123,4 +123,20 @@ void MainWindow::on_actionReceive_Image_triggered() {
 void MainWindow::on_actionRun_simulation_triggered()
 {
   RMAlgorithm rm_algorithm(findChild<QTableWidget*>("tableWidget"));
+  switch (rm_algorithm.garantyTest()) {
+    case -1:
+    QMessageBox::critical(this, "Error: there are no tasks", "Please, check the task's list and add some tasks");
+      break;
+    case 0:
+    case 1:
+      rm_algorithm.rateMonotonic();
+      break;
+    case 2:
+
+      break;
+    default:
+
+      break;
+    }
+
 }
