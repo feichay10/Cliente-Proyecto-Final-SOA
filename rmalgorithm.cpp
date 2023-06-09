@@ -24,11 +24,13 @@ void RMAlgorithm::rateMonotonic() {
 
 int RMAlgorithm::garantyTest() {
   if (tasks_.size() > 0) {
-    double upper_limit = tasks_.size() * (pow(2, 1 / tasks_.size()) - 1);
+    double upper_limit = tasks_.size() * (pow(2, 1 / (double)tasks_.size()) - 1);
     double use_factor = 0.0;
 
     for (const auto& task : tasks_)
-      use_factor += task.timeTask / task.period;
+      use_factor += task.timeTask / (double)task.period;
+
+    std::cout << use_factor << " " << upper_limit << std::endl;
 
     if (use_factor <= upper_limit) {
       return 0; ///<Planificable
