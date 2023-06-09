@@ -19,19 +19,16 @@ void RMAlgorithm::rateMonotonic() {
   if (kGarantyTest == 0 ||  kGarantyTest == 1) {
     int current_time = 0, max_time = 120;
     Task* current_task = NULL;
+    std::list<Task*> runnable_tasks;
 
     while (current_time < max_time) {
       std::cout << "T: " << current_time;
-      std::list<Task*> runnable_tasks;
 
       for (int i = 0; i < tasks_.size(); ++i) {
-        if (tasks_[i].last_entry_point + tasks_[i].period <= current_time || tasks_[i].exec_num == 0) {
+        if (tasks_[i].just_arrived && (tasks_[i].last_entry_point + tasks_[i].period <= current_time || tasks_[i].exec_num == 0)) {
           runnable_tasks.push_back(&tasks_[i]);
-
-          if (tasks_[i].just_arrived) {
-            tasks_[i].last_entry_point = current_time;
-            tasks_[i].just_arrived = false;
-          }
+          tasks_[i].last_entry_point = current_time;
+          tasks_[i].just_arrived = false;
         }
       }
 
@@ -40,7 +37,12 @@ void RMAlgorithm::rateMonotonic() {
           return task_a->period < task_b->period;
         });
 
-        if (current_task == NULL || current_task->period > runnable_tasks.front()->period) current_task = runnable_tasks.front();
+        if (current_task == NULL || current_task->period > runnable_tasks.front()->period) {
+          if (current_task != NULL) runnable_tasks.push_back(current_task);
+
+          current_task = runnable_tasks.front();
+          runnable_tasks.pop_front();
+        }
       }
 
       if (current_task != NULL) {
