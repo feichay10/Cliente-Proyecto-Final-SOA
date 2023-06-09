@@ -15,7 +15,9 @@ struct Task {
   int period;
   int deadline;
   int remaining_time;
-  int last_exec_point;
+  int last_entry_point;
+  int exec_num;
+  bool just_arrived;
 };
 
 class RMAlgorithm {
