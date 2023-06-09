@@ -6,6 +6,7 @@
 #include <QTableWidget>
 #include <QMessageBox>
 #include <QDebug>
+#include <queue>
 #include <iostream>
 
 struct Task {

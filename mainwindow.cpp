@@ -109,6 +109,7 @@ void MainWindow::on_actionReceive_Image_triggered() {
 
     QImage image_from_server;
     bool delivery_success = image_from_server.loadFromData(message_from_server);
+
     if (delivery_success) {
       ui->lineEdit->setText("Server sent this image:");
       QPixmap pixmap_image_server = QPixmap::fromImage(image_from_server);
@@ -117,26 +118,28 @@ void MainWindow::on_actionReceive_Image_triggered() {
 
     } else
       QMessageBox::critical(this, "Error: Cannot be able to get the image", "The image from server had some problems to be read");
+
   } else QMessageBox::critical(this, "ERROR: Image cannot be received correctly", "Nothing can be received; check Connection button, then try again...");
 }
 
-void MainWindow::on_actionRun_simulation_triggered()
-{
+void MainWindow::on_actionRun_simulation_triggered() {
   RMAlgorithm rm_algorithm(findChild<QTableWidget*>("tableWidget"));
+
   switch (rm_algorithm.garantyTest()) {
     case -1:
-    QMessageBox::critical(this, "Error: there are no tasks", "Please, check the task's list and add some tasks");
+      QMessageBox::critical(this, "Error: there are no tasks", "Please, check the tasks list and add some tasks");
       break;
+
     case 0:
     case 1:
       rm_algorithm.rateMonotonic();
       break;
+
     case 2:
-
+      QMessageBox::critical(this, "Error: tasks overload", "Please, check the tasks list as there is an overload");
       break;
+
     default:
-
       break;
-    }
-
+  }
 }
