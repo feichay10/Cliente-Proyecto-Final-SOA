@@ -3,7 +3,7 @@
 RMAlgorithm::RMAlgorithm(QTableWidget* tableTasks) {
   if (tableTasks != NULL) {
     for(int i{0}; i < tableTasks->rowCount(); ++i) {
-      Task current_task{tableTasks->item(i, 0)->text(), std::stoi(tableTasks->item(i, 1)->text().toStdString()), std::stoi(tableTasks->item(i, 2)->text().toStdString()), std::stoi(tableTasks->item(i, 3)->text().toStdString()), std::stoi(tableTasks->item(i, 1)->text().toStdString()), 0, 0, true};
+      Task current_task{tableTasks->item(i, 0)->text(), i + 1, std::stoi(tableTasks->item(i, 1)->text().toStdString()), std::stoi(tableTasks->item(i, 2)->text().toStdString()), std::stoi(tableTasks->item(i, 3)->text().toStdString()), std::stoi(tableTasks->item(i, 1)->text().toStdString()), 0, 0, true};
       tasks_.push_back(current_task);
     }
 
@@ -13,11 +13,26 @@ RMAlgorithm::RMAlgorithm(QTableWidget* tableTasks) {
   }
 }
 
-void RMAlgorithm::rateMonotonic() {
+QCustomPlot* RMAlgorithm::rateMonotonic() {
   const int kGarantyTest{garantyTest()};
+  QCustomPlot* graph = NULL;
 
   if (kGarantyTest == 0 ||  kGarantyTest == 1) {
     int current_time = 0, max_time = 120;
+    graph = new QCustomPlot();
+    QVector<double> x(max_time); ///<time pos
+    QVector<double> y(max_time); ///<task executed at that time
+    graph->addGraph();
+    graph->xAxis->setLabel("Time");
+    graph->yAxis->setLabel("Task executed");
+    graph->xAxis->setRange(0, max_time);
+    graph->yAxis->setRange(0, tasks_.size() + 1);
+    QSharedPointer<QCPAxisTickerText> textTicker(new QCPAxisTickerText);
+
+    for (int i = 0; i < tasks_.size(); ++i)
+      textTicker->addTick(i + 1, tasks_[i].name);
+
+    graph->yAxis->setTicker(textTicker);
     Task* current_task = NULL;
     std::list<Task*> runnable_tasks;
 
@@ -47,6 +62,8 @@ void RMAlgorithm::rateMonotonic() {
 
       if (current_task != NULL) {
         std::cout << " - Executing " << current_task->name.toStdString() << current_task->exec_num << " remaining time: " << current_task ->remaining_time;
+        x[current_time] = current_time;
+        y[current_time] = current_task->graph_pos;
         //std::cout << " entered processor in: " << current_task->last_entry_point;
         current_task->remaining_time--;
 
@@ -61,7 +78,11 @@ void RMAlgorithm::rateMonotonic() {
       std::cout << std::endl;
       ++current_time;
     }
+
+    graph->graph(0)->setData(x, y);
   }
+
+  return graph;
 }
 
 int RMAlgorithm::garantyTest() {

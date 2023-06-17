@@ -44,6 +44,6 @@ class MainWindow : public QMainWindow {
   Ui::MainWindow* ui;
   SvCon* sv_conn;
   AddTask* tasks;
-  QCustomPlot* last_simulation_made;
+  QCustomPlot* last_graph_;
 };
 #endif // MAINWINDOW_H

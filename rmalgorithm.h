@@ -8,9 +8,11 @@
 #include <QDebug>
 #include <queue>
 #include <iostream>
+#include "qcustomplot.h"
 
 struct Task {
   QString name;
+  int graph_pos;
   int timeTask;
   int period;
   int deadline;
@@ -24,7 +26,7 @@ class RMAlgorithm {
  public:
   RMAlgorithm(QTableWidget* tableTasks = NULL);
 
-  void rateMonotonic(void);
+  QCustomPlot* rateMonotonic(void);
   int garantyTest(void);
 
  private:

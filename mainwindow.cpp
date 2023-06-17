@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget* parent)
   , ui(new Ui::MainWindow),
     sv_conn(NULL),
     tasks(NULL),
-    last_simulation_made(NULL) {
+    last_graph_(NULL) {
   ui->setupUi(this);
 }
 
@@ -116,6 +116,7 @@ void MainWindow::on_actionReceive_Image_triggered() {
       ui->textEdit_messages->setText(ui->textEdit_messages->toPlainText() + "The server sent a simulation\n");
       ui->label_Image_Simulation->resize(pixmap_image_server.width(), pixmap_image_server.height());
       ui->label_Image_Simulation->setPixmap(pixmap_image_server);
+
     } else
       QMessageBox::critical(this, "Error: Cannot be able to get the image", "The image from server had some problems to be read");
 
@@ -132,7 +133,14 @@ void MainWindow::on_actionRun_simulation_triggered() {
 
     case 0:
     case 1:
-      rm_algorithm.rateMonotonic();
+      last_graph_ = rm_algorithm.rateMonotonic();
+
+      if (last_graph_ != NULL) {
+        QPixmap pix = last_graph_->toPixmap();
+        ui->label_Image_Simulation->resize(pix.width(), pix.height());
+        ui->label_Image_Simulation->setPixmap(pix);
+      }
+
       break;
 
     case 2:
