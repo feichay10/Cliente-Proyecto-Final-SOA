@@ -20,8 +20,8 @@ QCustomPlot* RMAlgorithm::rateMonotonic() {
   if (kGarantyTest == 0 ||  kGarantyTest == 1) {
     int current_time = 0, max_time = 120;
     graph = new QCustomPlot();
-    QVector<double> x(max_time); ///<time pos
-    QVector<double> y(max_time); ///<task executed at that time
+    //QVector<double> x(max_time); ///<time pos
+    //QVector<double> y(max_time); ///<task executed at that time
     graph->addGraph();
     graph->xAxis->setLabel("Time");
     graph->yAxis->setLabel("Task executed");
@@ -33,6 +33,8 @@ QCustomPlot* RMAlgorithm::rateMonotonic() {
       textTicker->addTick(i + 1, tasks_[i].name);
 
     graph->yAxis->setTicker(textTicker);
+    //for (double d = 0.0; d < 120.0; d += 0.01)
+    //graph->graph(0)->addData(d, 0.0);
     Task* current_task = NULL;
     std::list<Task*> runnable_tasks;
 
@@ -62,8 +64,9 @@ QCustomPlot* RMAlgorithm::rateMonotonic() {
 
       if (current_task != NULL) {
         std::cout << " - Executing " << current_task->name.toStdString() << current_task->exec_num << " remaining time: " << current_task ->remaining_time;
-        x[current_time] = current_time;
-        y[current_time] = current_task->graph_pos;
+        //x[current_time] = current_time;
+        //y[current_time] = current_task->graph_pos;
+        graph->graph(0)->addData((double)current_time, (double)current_task->graph_pos);
         //std::cout << " entered processor in: " << current_task->last_entry_point;
         current_task->remaining_time--;
 
@@ -79,7 +82,11 @@ QCustomPlot* RMAlgorithm::rateMonotonic() {
       ++current_time;
     }
 
-    graph->graph(0)->setData(x, y);
+    //graph->graph(0)->setData(x, y);
+    graph->graph(0)->setLineStyle(QCPGraph::lsNone);
+    graph->graph(0)->setScatterStyle(QCPScatterStyle::ssCircle);
+    //graph->graph(0)->setLinePen(QPen(Qt::red, 2, Qt::DashLine));
+    graph->graph(0)->setPen(QPen(Qt::magenta, 2, Qt::DashLine));
   }
 
   return graph;
