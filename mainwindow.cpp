@@ -5,7 +5,8 @@ MainWindow::MainWindow(QWidget* parent)
   : QMainWindow(parent)
   , ui(new Ui::MainWindow),
     sv_conn(NULL),
-    tasks(NULL) {
+    tasks(NULL),
+    last_simulation_made(NULL) {
   ui->setupUi(this);
 }
 
@@ -111,11 +112,10 @@ void MainWindow::on_actionReceive_Image_triggered() {
     bool delivery_success = image_from_server.loadFromData(message_from_server);
 
     if (delivery_success) {
-      ui->lineEdit->setText("Server sent this image:");
       QPixmap pixmap_image_server = QPixmap::fromImage(image_from_server);
-      ui->label_image_received_from_server->resize(pixmap_image_server.width(), pixmap_image_server.height());
-      ui->label_image_received_from_server->setPixmap(pixmap_image_server);
-
+      ui->textEdit_messages->setText(ui->textEdit_messages->toPlainText() + "The server sent a simulation\n");
+      ui->label_Image_Simulation->resize(pixmap_image_server.width(), pixmap_image_server.height());
+      ui->label_Image_Simulation->setPixmap(pixmap_image_server);
     } else
       QMessageBox::critical(this, "Error: Cannot be able to get the image", "The image from server had some problems to be read");
 

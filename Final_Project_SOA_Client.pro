@@ -1,6 +1,6 @@
 QT       += core gui sql network widgets
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 CONFIG += c++17
 
@@ -13,13 +13,15 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     rmalgorithm.cpp \
-    svcon.cpp
+    svcon.cpp \
+    qcustomplot.cpp
 
 HEADERS += \
     addtask.h \
     mainwindow.h \
     rmalgorithm.h \
-    svcon.h
+    svcon.h \
+    qcustomplot.h
 
 FORMS += \
     addtask.ui \

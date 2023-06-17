@@ -13,6 +13,7 @@
 #include "svcon.h"
 #include "addtask.h"
 #include "rmalgorithm.h"
+#include "qcustomplot.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -43,5 +44,6 @@ class MainWindow : public QMainWindow {
   Ui::MainWindow* ui;
   SvCon* sv_conn;
   AddTask* tasks;
+  QCustomPlot* last_simulation_made;
 };
 #endif // MAINWINDOW_H
