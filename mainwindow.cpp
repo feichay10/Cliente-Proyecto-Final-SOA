@@ -8,6 +8,9 @@ MainWindow::MainWindow(QWidget* parent)
     tasks(NULL),
     last_graph_(NULL) {
   ui->setupUi(this);
+  ui->graph_sim->setVisible(false);
+  ui->lineEdit_sim_name->setVisible(false);
+  ui->label_sim_name->setVisible(false);
 }
 
 MainWindow::~MainWindow() {
@@ -65,7 +68,8 @@ void MainWindow::on_actionTasks_triggered() {
 
 
 void MainWindow::on_actionSend_Image_triggered() {
-  if (sv_conn != NULL && sv_conn->socket_to_sv != NULL && sv_conn->socket_to_sv->isOpen() && !ui->label_Image_Simulation->pixmap().isNull()) {
+  //if (sv_conn != NULL && sv_conn->socket_to_sv != NULL && sv_conn->socket_to_sv->isOpen() && !ui->label_Image_Simulation->pixmap().isNull()) {
+  if (sv_conn != NULL && sv_conn->socket_to_sv != NULL && sv_conn->socket_to_sv->isOpen()) {
     sv_conn->socket_to_sv->write("SEND_IMG");
     sv_conn->socket_to_sv->flush();
     sv_conn->socket_to_sv->waitForBytesWritten();
@@ -76,9 +80,11 @@ void MainWindow::on_actionSend_Image_triggered() {
       server_response = sv_conn->socket_to_sv->readAll();
 
     if (server_response.toStdString() == "OK") {
-      /// The cliente select the image
-      //QString imagePath = QFileDialog::getOpenFileName(this, "Select image to send to server", QDir::homePath(), "Images (*.png *.jpg *.jpeg);;Any file(*.*)");
-      QImage image_to_server = ui->label_Image_Simulation->pixmap().toImage(); ///< We store the image correctly from the file system
+      //sv_conn->socket_to_sv->write("SIM_INFO:" + ui->lineEdit_sim_name->text() + "|" + );
+      sv_conn->socket_to_sv->flush();
+      sv_conn->socket_to_sv->waitForBytesWritten();
+      QPixmap pix = ui->graph_sim->toPixmap();
+      QImage image_to_server = pix.toImage();
       QByteArray byteArrayImage;
       QBuffer bufferImage(&byteArrayImage);
       bufferImage.open(QIODevice::WriteOnly);
@@ -110,9 +116,9 @@ void MainWindow::on_actionReceive_Image_triggered() {
 
     if (delivery_success) {
       QPixmap pixmap_image_server = QPixmap::fromImage(image_from_server);
-      ui->textEdit_messages->setText(ui->textEdit_messages->toPlainText() + "The server sent a simulation\n");
-      ui->label_Image_Simulation->resize(pixmap_image_server.width(), pixmap_image_server.height());
-      ui->label_Image_Simulation->setPixmap(pixmap_image_server);
+      ui->textEdit_messages->insertPlainText("\nThe server sent a simulation");
+      //ui->label_Image_Simulation->resize(pixmap_image_server.width(), pixmap_image_server.height());
+      //ui->label_Image_Simulation->setPixmap(pixmap_image_server);
 
     } else
       QMessageBox::critical(this, "Error: Cannot be able to get the image", "The image from server had some problems to be read");
@@ -129,16 +135,15 @@ void MainWindow::on_actionRun_simulation_triggered() {
       break;
 
     case 0:
-    case 1:
-      last_graph_ = rm_algorithm.rateMonotonic();
+    case 1: {
+      if (!(last_sim_is_schedulable_ = rm_algorithm.rateMonotonic(ui->graph_sim))) QMessageBox::critical(this, "Error: not planificable", "TEST");
 
-      if (last_graph_ != NULL) {
-        QPixmap pix = last_graph_->toPixmap();
-        ui->label_Image_Simulation->resize(pix.width(), pix.height());
-        ui->label_Image_Simulation->setPixmap(pix);
-      }
-
+      ui->graph_sim->setVisible(true);
+      ui->graph_sim->replot();
+      ui->lineEdit_sim_name->setVisible(true);
+      ui->label_sim_name->setVisible(true);
       break;
+    }
 
     case 2:
       QMessageBox::critical(this, "Error: tasks overload", "Please, check the tasks list as there is an overload");

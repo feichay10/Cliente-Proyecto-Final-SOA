@@ -11,6 +11,7 @@
 #include <regex>
 #include <QClipboard>
 #include <QByteArray>
+#include "mainwindow.h"
 
 namespace Ui {
 class SvCon;

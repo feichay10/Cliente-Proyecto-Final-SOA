@@ -10,10 +10,12 @@
 #include <QBuffer>
 #include <QLabel>
 #include <QTextStream>
-#include "svcon.h"
 #include "addtask.h"
 #include "rmalgorithm.h"
 #include "qcustomplot.h"
+#include "svcon.h"
+
+class SvCon;
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -23,6 +25,7 @@ QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow {
   Q_OBJECT
+  friend class SvCon;
  public:
   MainWindow(QWidget* parent = nullptr);
   ~MainWindow();
@@ -45,5 +48,6 @@ class MainWindow : public QMainWindow {
   SvCon* sv_conn;
   AddTask* tasks;
   QCustomPlot* last_graph_;
+  bool last_sim_is_schedulable_;
 };
 #endif // MAINWINDOW_H

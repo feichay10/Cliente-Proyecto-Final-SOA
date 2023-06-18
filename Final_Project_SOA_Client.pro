@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     addtask.cpp \
+    lib_flot.cpp \
     main.cpp \
     mainwindow.cpp \
     rmalgorithm.cpp \
@@ -18,6 +19,7 @@ SOURCES += \
 
 HEADERS += \
     addtask.h \
+    lib_flot.h \
     mainwindow.h \
     rmalgorithm.h \
     svcon.h \

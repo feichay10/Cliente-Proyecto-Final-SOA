@@ -46,7 +46,7 @@ void SvCon::on_start_disconnButton_clicked() {
     socket_to_sv->open(QIODevice::ReadWrite);
     QString port = std::to_string(findChild<QSpinBox*>("spinBox_port")->value()).c_str();
     ui->start_disconnButton->setText("Disconnect");
-    QMessageBox::information(this, "Server connection", (socket_to_sv->isOpen() && socket_to_sv->isValid()) ? ("Connected correctly with " + IP + ":" + port.toStdString()).c_str() : "Error when connecting");
+    ((MainWindow*)widget_mainWindow_)->findChild<QTextEdit*>("textEdit_messages")->insertPlainText((socket_to_sv->isOpen() && socket_to_sv->isValid()) ? ("Connected correctly with " + IP + ":" + port.toStdString() + "\n").c_str() : "Error when connecting\n");
 
   } else if (ui->start_disconnButton->text() == "Disconnect") {
     if (socket_to_sv != NULL) {
@@ -56,7 +56,7 @@ void SvCon::on_start_disconnButton_clicked() {
     }
 
     ui->start_disconnButton->setText("Start");
-    QMessageBox::information(this, windowTitle(), "Disconnected from server");
+    ((MainWindow*)widget_mainWindow_)->findChild<QTextEdit*>("textEdit_messages")->insertPlainText("Disconnected from server\n"); ///< It's neccesary to manipulate the main window from this object
   }
 }
 

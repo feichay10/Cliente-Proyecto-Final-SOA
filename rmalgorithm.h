@@ -9,6 +9,7 @@
 #include <queue>
 #include <iostream>
 #include "qcustomplot.h"
+#include "lib_flot.h"
 
 struct Task {
   QString name;
@@ -26,11 +27,12 @@ class RMAlgorithm {
  public:
   RMAlgorithm(QTableWidget* tableTasks = NULL);
 
-  QCustomPlot* rateMonotonic(void);
+  bool rateMonotonic(QCustomPlot*);
   int garantyTest(void);
 
  private:
   QVector<Task> tasks_;
+  QVector<QString> names_;
 };
 
 #endif // RMALGORITHM_H
