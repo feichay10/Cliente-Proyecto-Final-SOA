@@ -136,12 +136,13 @@ void MainWindow::on_actionRun_simulation_triggered() {
 
     case 0:
     case 1: {
-      if ((last_sim_task_error_ = rm_algorithm.rateMonotonic(ui->graph_sim)) != "") QMessageBox::critical(this, "Error: not planificable", (QString("Task not schedulable: ") + last_sim_task_error_).toStdString().c_str());
+      last_sim_task_error_ = rm_algorithm.rateMonotonic(ui->graph_sim);
 
       ui->graph_sim->setVisible(true);
       ui->graph_sim->replot();
       ui->lineEdit_sim_name->setVisible(true);
       ui->label_sim_name->setVisible(true);
+      if (last_sim_task_error_ != "") QMessageBox::critical(this, "Error: not planificable", (QString("Task not schedulable: ") + last_sim_task_error_).toStdString().c_str());
       break;
     }
 
