@@ -48,6 +48,6 @@ class MainWindow : public QMainWindow {
   SvCon* sv_conn;
   AddTask* tasks;
   QCustomPlot* last_graph_;
-  bool last_sim_is_schedulable_;
+  QString last_sim_task_error_;
 };
 #endif // MAINWINDOW_H

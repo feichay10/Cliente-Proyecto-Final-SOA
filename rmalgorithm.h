@@ -27,7 +27,7 @@ class RMAlgorithm {
  public:
   RMAlgorithm(QTableWidget* tableTasks = NULL);
 
-  bool rateMonotonic(QCustomPlot*);
+  QString rateMonotonic(QCustomPlot*);
   int garantyTest(void);
 
  private:

@@ -14,12 +14,12 @@ RMAlgorithm::RMAlgorithm(QTableWidget* tableTasks) {
   }
 }
 
-bool RMAlgorithm::rateMonotonic(QCustomPlot* graph_results) {
+QString RMAlgorithm::rateMonotonic(QCustomPlot* graph_results) {
   const int kGarantyTest{garantyTest()};
-  bool schedulable = false;
+  QString task_error = "";
 
   if ((kGarantyTest == 0 ||  kGarantyTest == 1) && graph_results != NULL) {
-    schedulable = true;
+    graph_results->clearGraphs();
     int current_time = 0, max_time = 120;
     graph_results->addGraph();
     graph_results->xAxis->setLabel("Time");
@@ -45,8 +45,8 @@ bool RMAlgorithm::rateMonotonic(QCustomPlot* graph_results) {
           tasks_[i].just_arrived = false;
         }
 
-        if (current_time - tasks_[i].last_entry_point > tasks_[i].deadline) { ///Execution of task was not completed in the deadline
-          schedulable = false;
+        if (current_time - tasks_[i].last_entry_point >= tasks_[i].deadline) { ///Execution of task was not completed in the deadline
+          task_error = tasks_[i].name;
           goto while_end;
         }
       }
@@ -87,7 +87,7 @@ while_end:
     graph_results->graph(0)->setPen(QPen(Qt::magenta, 2, Qt::DashLine));
   }
 
-  return schedulable;
+  return task_error;
 }
 
 int RMAlgorithm::garantyTest() {
@@ -100,7 +100,7 @@ int RMAlgorithm::garantyTest() {
 
     std::cout << use_factor << std::endl;
 
-    if (!Greater(use_factor, upper_limit)) {
+    if (Less(use_factor, upper_limit)) {
       return 0; ///<Planificable
 
     } else if (!Greater(use_factor, 1.00)) {
