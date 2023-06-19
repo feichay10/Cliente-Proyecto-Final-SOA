@@ -1,5 +1,19 @@
 #include "lib_flot.h"
 
+bool RNG_seed_set = false;
+
+float GenerateRandomNumber(float lower_limit, float upper_limit) {
+  if (!RNG_seed_set) {
+    srand(std::time(NULL));
+    RNG_seed_set = true;
+  }
+
+  if (lower_limit >= upper_limit) qDebug() << "Invalid range for RNG";
+
+  float RNG_number = (float)rand() / RAND_MAX; //gets a random number between 0.0 and 1.0
+  return lower_limit + RNG_number * (upper_limit - lower_limit); //changes it to range [M, P] as asked
+}
+
 bool IsNotZero(const double num) {
   return (fabs(num) >= EPSILON);
 }

@@ -3,8 +3,7 @@
 RMAlgorithm::RMAlgorithm(QTableWidget* tableTasks) {
   if (tableTasks != NULL) {
     for(int i{0}; i < tableTasks->rowCount(); ++i) {
-      Task current_task{tableTasks->item(i, 0)->text(), i + 1, std::stoi(tableTasks->item(i, 1)->text().toStdString()), std::stoi(tableTasks->item(i, 2)->text().toStdString()), std::stoi(tableTasks->item(i, 3)->text().toStdString()), std::stoi(tableTasks->item(i, 1)->text().toStdString()), 0, 0, true};
-      names_.push_back(tableTasks->item(i, 0)->text());
+      Task current_task{tableTasks->item(i, 0)->text(), -1, std::stoi(tableTasks->item(i, 1)->text().toStdString()), std::stoi(tableTasks->item(i, 2)->text().toStdString()), std::stoi(tableTasks->item(i, 3)->text().toStdString()), std::stoi(tableTasks->item(i, 1)->text().toStdString()), 0, 0, true, QColor(GenerateRandomNumber(0, 255), GenerateRandomNumber(0, 255), GenerateRandomNumber(0, 255))};
       tasks_.push_back(current_task);
     }
 
@@ -14,22 +13,25 @@ RMAlgorithm::RMAlgorithm(QTableWidget* tableTasks) {
   }
 }
 
-QString RMAlgorithm::rateMonotonic(QCustomPlot* graph_results) {
+QString RMAlgorithm::rateMonotonic(QCustomPlot* graph_results, int max_time) {
   const int kGarantyTest{garantyTest()};
   QString task_error = "";
 
   if ((kGarantyTest == 0 ||  kGarantyTest == 1) && graph_results != NULL) {
     graph_results->clearGraphs();
-    int current_time = 0, max_time = 120;
-    graph_results->addGraph();
-    graph_results->xAxis->setLabel("Time");
-    graph_results->yAxis->setLabel("Task executed");
+    int current_time = 0;
     graph_results->xAxis->setRange(0, max_time);
     graph_results->yAxis->setRange(0, tasks_.size() + 1);
     QSharedPointer<QCPAxisTickerText> textTicker(new QCPAxisTickerText);
 
-    for (int i = 0; i < names_.size(); ++i)
-      textTicker->addTick(i + 1, names_[i]);
+    for (int i = 0; i < tasks_.size(); ++i) {
+      graph_results->addGraph();
+      tasks_[i].graph_pos = i;
+      graph_results->graph(i)->setLineStyle(QCPGraph::lsNone);
+      graph_results->graph(i)->setScatterStyle(QCPScatterStyle::ssCircle);
+      graph_results->graph(i)->setPen(QPen(tasks_[i].color, 2, Qt::DashLine));
+      textTicker->addTick(i + 1, tasks_[i].name);
+    }
 
     graph_results->yAxis->setTicker(textTicker);
     Task* current_task = NULL;
@@ -66,7 +68,7 @@ QString RMAlgorithm::rateMonotonic(QCustomPlot* graph_results) {
 
       if (current_task != NULL) {
         std::cout << " - Executing " << current_task->name.toStdString() << current_task->exec_num << " remaining time: " << current_task ->remaining_time;
-        graph_results->graph(0)->addData((double)current_time, (double)current_task->graph_pos);
+        graph_results->graph(current_task->graph_pos)->addData((double)current_time, (double)current_task->graph_pos + 1);
         current_task->remaining_time--;
 
         if (current_task->remaining_time == 0) {
@@ -82,9 +84,8 @@ QString RMAlgorithm::rateMonotonic(QCustomPlot* graph_results) {
     }
 
 while_end:
-    graph_results->graph(0)->setLineStyle(QCPGraph::lsNone);
-    graph_results->graph(0)->setScatterStyle(QCPScatterStyle::ssCircle);
-    graph_results->graph(0)->setPen(QPen(Qt::magenta, 2, Qt::DashLine));
+    graph_results->xAxis->setLabel("Time");
+    graph_results->yAxis->setLabel("Task executed");
   }
 
   return task_error;

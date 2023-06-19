@@ -11,6 +11,8 @@ MainWindow::MainWindow(QWidget* parent)
   ui->graph_sim->setVisible(false);
   ui->lineEdit_sim_name->setVisible(false);
   ui->label_sim_name->setVisible(false);
+  ui->lineEdit_sim_name->installEventFilter(this);
+  ui->graph_sim->installEventFilter(this);
 }
 
 MainWindow::~MainWindow() {
@@ -137,12 +139,13 @@ void MainWindow::on_actionRun_simulation_triggered() {
     case 0:
     case 1: {
       last_sim_task_error_ = rm_algorithm.rateMonotonic(ui->graph_sim);
-
       ui->graph_sim->setVisible(true);
       ui->graph_sim->replot();
       ui->lineEdit_sim_name->setVisible(true);
       ui->label_sim_name->setVisible(true);
+
       if (last_sim_task_error_ != "") QMessageBox::critical(this, "Error: not planificable", (QString("Task not schedulable: ") + last_sim_task_error_).toStdString().c_str());
+
       break;
     }
 
@@ -153,4 +156,26 @@ void MainWindow::on_actionRun_simulation_triggered() {
     default:
       break;
   }
+}
+
+bool MainWindow::eventFilter(QObject* obj, QEvent* event) {
+  if (event->type() == QEvent::KeyPress) {
+    QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
+
+    if (keyEvent->key() >= 0x30 && keyEvent->key() <= 0x39) {
+      int graph_pos = keyEvent->key() & 0xF;
+
+      if (graph_pos < ui->graph_sim->graphCount()) {
+        if (keyEvent->modifiers() == Qt::ControlModifier)
+          ui->graph_sim->graph(graph_pos)->setVisible(!ui->graph_sim->graph(graph_pos)->visible());
+
+        else if (keyEvent->modifiers() == Qt::AltModifier)
+          ui->graph_sim->graph(graph_pos)->setPen(QPen(QColor(GenerateRandomNumber(0, 255), GenerateRandomNumber(0, 255), GenerateRandomNumber(0, 255)), 2, Qt::DashLine));
+
+        ui->graph_sim->replot();
+      }
+    }
+  }
+
+  return QObject::eventFilter(obj, event);
 }
