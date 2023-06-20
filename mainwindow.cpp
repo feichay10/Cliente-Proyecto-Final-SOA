@@ -121,8 +121,13 @@ void MainWindow::on_actionReceive_Image_triggered() {
     while (sv_conn->socket_to_sv->bytesAvailable() > 0)
       message_from_server = sv_conn->socket_to_sv->readAll();
 
-    //...
-    sv_conn->socket_to_sv->write("2");
+    std::string wishlist = message_from_server.toStdString();
+    QMessageBox::information(this, "List", wishlist.c_str());
+    ///Select a valid line
+    ///while () {
+    /// }
+    int wanted_line = 2;
+    sv_conn->socket_to_sv->write(std::to_string(wanted_line).c_str());
     sv_conn->socket_to_sv->flush();
     sv_conn->socket_to_sv->waitForBytesWritten();
     ///Receive the wanted image of the list
