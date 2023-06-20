@@ -560,6 +560,19 @@ p, li { white-space: pre-wrap; }
           <property name="toolTip">
            <string>[CTRL/ALT]+NUMBER -&gt; Change task [VISIBILITY/COLOR]</string>
           </property>
+          <widget class="QLabel" name="label_Image_Simulation">
+           <property name="geometry">
+            <rect>
+             <x>250</x>
+             <y>130</y>
+             <width>65</width>
+             <height>18</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>TextLabel</string>
+           </property>
+          </widget>
          </widget>
         </item>
        </layout>

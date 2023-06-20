@@ -110,11 +110,22 @@ void MainWindow::on_actionSend_Image_triggered() {
 
 void MainWindow::on_actionReceive_Image_triggered() {
   if (sv_conn != NULL && sv_conn->socket_to_sv != NULL && sv_conn->socket_to_sv->isOpen()) {
-    ///receive some temporal answer from server
+    //Open the new widget
     QByteArray message_from_server;
     sv_conn->socket_to_sv->write("RECEIVE_IMG");
     sv_conn->socket_to_sv->flush();
     sv_conn->socket_to_sv->waitForBytesWritten();
+    ///Read the list
+    sv_conn->socket_to_sv->waitForReadyRead();
+
+    while (sv_conn->socket_to_sv->bytesAvailable() > 0)
+      message_from_server = sv_conn->socket_to_sv->readAll();
+
+    //...
+    sv_conn->socket_to_sv->write("2");
+    sv_conn->socket_to_sv->flush();
+    sv_conn->socket_to_sv->waitForBytesWritten();
+    ///Receive the wanted image of the list
     sv_conn->socket_to_sv->waitForReadyRead();
 
     while (sv_conn->socket_to_sv->bytesAvailable() > 0)
@@ -125,12 +136,12 @@ void MainWindow::on_actionReceive_Image_triggered() {
 
     if (delivery_success) {
       QPixmap pixmap_image_server = QPixmap::fromImage(image_from_server);
-      ui->textEdit_messages->insertPlainText("\nThe server sent a simulation");
-      //ui->label_Image_Simulation->resize(pixmap_image_server.width(), pixmap_image_server.height());
-      //ui->label_Image_Simulation->setPixmap(pixmap_image_server);
+      ui->textEdit_messages->insertPlainText("\nThe server sent an image");
+      ui->label_Image_Simulation->resize(pixmap_image_server.width(), pixmap_image_server.height());
+      ui->label_Image_Simulation->setPixmap(pixmap_image_server);
 
     } else
-      QMessageBox::critical(this, "Error: Cannot be able to get the image", "The image from server had some problems to be read");
+      QMessageBox::critical(this, "Error: Cannot get the image", "The image from server had some problems to be read");
 
   } else QMessageBox::critical(this, "ERROR: Image cannot be received correctly", "Nothing can be received; check Connection button, then try again...");
 }
