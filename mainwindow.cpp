@@ -70,32 +70,39 @@ void MainWindow::on_actionTasks_triggered() {
 
 
 void MainWindow::on_actionSend_Image_triggered() {
-  //if (sv_conn != NULL && sv_conn->socket_to_sv != NULL && sv_conn->socket_to_sv->isOpen() && !ui->label_Image_Simulation->pixmap().isNull()) {
   if (sv_conn != NULL && sv_conn->socket_to_sv != NULL && sv_conn->socket_to_sv->isOpen()) {
-    sv_conn->socket_to_sv->write("SEND_IMG");
-    sv_conn->socket_to_sv->flush();
-    sv_conn->socket_to_sv->waitForBytesWritten();
-    QByteArray server_response;
-    sv_conn->socket_to_sv->waitForReadyRead();
+    if (ui->graph_sim->isVisible()) {
+      if (std::regex_match(ui->lineEdit_sim_name->text().toStdString(), std::regex("^[A-Za-z0-9]+$"))) {
+        sv_conn->socket_to_sv->write("SEND_IMG");
+        sv_conn->socket_to_sv->flush();
+        sv_conn->socket_to_sv->waitForBytesWritten();
+        QByteArray server_response;
+        sv_conn->socket_to_sv->waitForReadyRead();
 
-    while (sv_conn->socket_to_sv->bytesAvailable() > 0)
-      server_response = sv_conn->socket_to_sv->readAll();
+        while (sv_conn->socket_to_sv->bytesAvailable() > 0)
+          server_response = sv_conn->socket_to_sv->readAll();
 
-    if (server_response.toStdString() == "OK") {
-      //sv_conn->socket_to_sv->write("SIM_INFO:" + ui->lineEdit_sim_name->text() + "|" + );
-      sv_conn->socket_to_sv->flush();
-      sv_conn->socket_to_sv->waitForBytesWritten();
-      QPixmap pix = ui->graph_sim->toPixmap();
-      QImage image_to_server = pix.toImage();
-      QByteArray byteArrayImage;
-      QBuffer bufferImage(&byteArrayImage);
-      bufferImage.open(QIODevice::WriteOnly);
-      image_to_server.save(&bufferImage, "JPEG"); ///< We store the image in the "bufferImage" as a "JPEG" to be sent to server
-      sv_conn->socket_to_sv->write(byteArrayImage);
-      sv_conn->socket_to_sv->waitForBytesWritten();
+        if (server_response.toStdString() == "OK") {
+          ///Send image info
+          sv_conn->socket_to_sv->write((ui->lineEdit_sim_name->text().toStdString() + "|" + std::to_string(((int)ui->graph_sim->yAxis->range().upper - 1)) + "|" + (last_sim_task_error_ == "" ? "Y" : "N")).c_str());
+          sv_conn->socket_to_sv->flush();
+          sv_conn->socket_to_sv->waitForBytesWritten();
+          ///Send image
+          QPixmap pix = ui->graph_sim->toPixmap();
+          QImage image_to_server = pix.toImage();
+          QByteArray byteArrayImage;
+          QBuffer bufferImage(&byteArrayImage);
+          bufferImage.open(QIODevice::WriteOnly);
+          image_to_server.save(&bufferImage, "JPEG"); ///< We store the image in the "bufferImage" as a "JPEG" to be sent to server
+          sv_conn->socket_to_sv->write(byteArrayImage);
+          sv_conn->socket_to_sv->waitForBytesWritten();
 
-    } else
-      QMessageBox::critical(this, "ERROR: Server does not send response", ("Server could not receive the image; it sent this: " + server_response.toStdString()).c_str());
+        } else
+          QMessageBox::critical(this, "ERROR: Server does not send response", ("Server could not receive the image; it sent this: " + server_response.toStdString()).c_str());
+
+      } else QMessageBox::critical(this, "ERROR: simulation name invalid", "Only numbers and alphabetic characters allowed");
+
+    } else QMessageBox::critical(this, "ERROR: No image available", "No simulation has been done, therefore no image to send");
 
   } else QMessageBox::critical(this, "ERROR: Image cannot be sent correctly", "There is no connection to server; go to Connection button, then try again...");
 }
