@@ -84,7 +84,7 @@ void MainWindow::on_actionSend_Image_triggered() {
 
         if (server_response.toStdString() == "OK") {
           ///Send image info
-          sv_conn->socket_to_sv->write((ui->lineEdit_sim_name->text().toStdString() + "|" + std::to_string(((int)ui->graph_sim->yAxis->range().upper - 1)) + "|" + (last_sim_task_error_ == "" ? "Y" : "N")).c_str());
+          sv_conn->socket_to_sv->write((ui->lineEdit_sim_name->text().toStdString() + "|" + std::to_string(((int)ui->graph_sim->yAxis->range().upper - 1)) + "|" + (last_sim_task_error_ == "" ? "YES" : "NO")).c_str());
           sv_conn->socket_to_sv->flush();
           sv_conn->socket_to_sv->waitForBytesWritten();
           ///Send image
