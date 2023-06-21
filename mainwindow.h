@@ -15,6 +15,7 @@
 #include <QUrl>
 #include "filter.h"
 #include "addtask.h"
+#include "rowinputdiag.h"
 #include "rmalgorithm.h"
 #include "qcustomplot.h"
 #include "svcon.h"

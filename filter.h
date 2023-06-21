@@ -15,6 +15,7 @@ class Filter : public QDialog {
   explicit Filter(QWidget* parent = nullptr);
   ~Filter();
 
+ public slots:
  private slots:
 
   void on_lineEdit_name_textChanged(const QString& arg1);

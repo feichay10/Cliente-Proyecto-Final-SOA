@@ -15,6 +15,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     rmalgorithm.cpp \
+    rowinputdiag.cpp \
     svcon.cpp \
     qcustomplot.cpp
 
@@ -24,6 +25,7 @@ HEADERS += \
     lib_flot.h \
     mainwindow.h \
     rmalgorithm.h \
+    rowinputdiag.h \
     svcon.h \
     qcustomplot.h
 
@@ -31,6 +33,7 @@ FORMS += \
     addtask.ui \
     filter.ui \
     mainwindow.ui \
+    rowinputdiag.ui \
     svcon.ui
 
 # Default rules for deployment.

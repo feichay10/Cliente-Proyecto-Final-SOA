@@ -113,12 +113,7 @@ void MainWindow::on_actionReceive_Image_triggered() {
     if (message_from_server.toStdString() == "OK") {
       ///Send the filters
       Filter filter_diag;
-      // (optional) myInstance.setAttribute(Qt::WA_DeleteOnClose);
       filter_diag.exec();
-      // This loop will wait for the window is destroyed
-      //QEventLoop loop;
-      //connect(this, SIGNAL(destroyed()), & loop, SLOT(quit()));
-      //loop.exec();
       sv_conn->socket_to_sv->write((filter_diag.findChild<QLineEdit*>("lineEdit_name")->text() + "|" + filter_diag.findChild<QSpinBox*>("spinBox_num_tasks")->text() + "|" + filter_diag.findChild<QDateTimeEdit*>("dateTimeEdit")->text()).toStdString().c_str());
       sv_conn->socket_to_sv->flush();
       sv_conn->socket_to_sv->waitForBytesWritten();
@@ -132,9 +127,9 @@ void MainWindow::on_actionReceive_Image_triggered() {
 
       if (wishlist != "X") {
         bool ok;
-        QInputDialog input;
-        input.setOkButtonText("Receive");
-        int wanted_line = input.getInt(this, "List of receivable images", wishlist.c_str(), 0, 0, std::count(wishlist.begin(), wishlist.end(), '\n') - 1);
+        rowInputDiag input_diag(this, wishlist);
+        input_diag.exec();
+        int wanted_line = input_diag.findChild<QSpinBox*>("spinBox_row_wanted")->value();
         sv_conn->socket_to_sv->write(std::to_string(wanted_line).c_str());
         sv_conn->socket_to_sv->flush();
         sv_conn->socket_to_sv->waitForBytesWritten();
