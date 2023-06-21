@@ -46,9 +46,8 @@ void MainWindow::on_actionAbout_Cheddar_Client_triggered() {
 
 
 void MainWindow::on_actionManual_triggered() {
-  //QMessageBox::information(this, "Manual", "this message must be filled in the end of the development of the app");
+  // QMessageBox::information(this, "Manual", "this message must be filled in the end of the development of the app");
 
-  // The URL you want to open
   QString link = "https://doc.qt.io/qt-6/qurl.html";
   QDesktopServices::openUrl(QUrl(link));
 }
@@ -209,4 +208,6 @@ bool MainWindow::eventFilter(QObject* obj, QEvent* event) {
 void MainWindow::on_lineEdit_sim_name_textChanged(const QString& new_text) {
   if (!(std::regex_match(new_text.toStdString(), std::regex("^[A-Za-z0-9]+$")))) ui->lineEdit_sim_name->undo();
 }
+
+
 

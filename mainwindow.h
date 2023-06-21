@@ -11,8 +11,8 @@
 #include <QLabel>
 #include <QTextStream>
 #include <QInputDialog>
-#include <QUrl>
 #include <QDesktopServices>
+#include <QUrl>
 #include "addtask.h"
 #include "rmalgorithm.h"
 #include "qcustomplot.h"
@@ -46,7 +46,8 @@ class MainWindow : public QMainWindow {
   void on_actionRun_simulation_triggered();
   void on_lineEdit_sim_name_textChanged(const QString& arg1);
 
- private:
+
+  private:
   Ui::MainWindow* ui;
   SvCon* sv_conn;
   AddTask* tasks;
