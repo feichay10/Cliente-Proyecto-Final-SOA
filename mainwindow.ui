@@ -479,7 +479,7 @@
        </palette>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="Messages">
        <attribute name="title">
@@ -580,13 +580,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="Image">
+      <widget class="QWidget" name="ImageFromSV">
        <attribute name="title">
-        <string>Page</string>
+        <string>Image from server</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="QLabel" name="label">
+         <widget class="QLabel" name="label_ImgFromSv">
           <property name="text">
            <string>TextLabel</string>
           </property>
