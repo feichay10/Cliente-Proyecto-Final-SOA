@@ -42,6 +42,8 @@ class MainWindow : public QMainWindow {
   void on_actionSend_Image_triggered();
   void on_actionReceive_Image_triggered();
   void on_actionRun_simulation_triggered();
+  void on_lineEdit_sim_name_textChanged(const QString& arg1);
+
  private:
   Ui::MainWindow* ui;
   SvCon* sv_conn;
