@@ -35,3 +35,12 @@ int Round(const double real) {
 
   else return (int)real;
 }
+
+int calcLCM(const std::vector<int>& num) {
+  int lcm = num[0];
+
+  for (size_t i = 1; i < num.size(); i++)
+    lcm = std::lcm(lcm, num[i]);
+
+  return lcm;
+}

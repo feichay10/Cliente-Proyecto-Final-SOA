@@ -1,5 +1,6 @@
 #include "rmalgorithm.h"
 
+
 RMAlgorithm::RMAlgorithm(QTableWidget* tableTasks) {
   if (tableTasks != NULL) {
     for(int i{0}; i < tableTasks->rowCount(); ++i) {
@@ -13,9 +14,14 @@ RMAlgorithm::RMAlgorithm(QTableWidget* tableTasks) {
   }
 }
 
-QString RMAlgorithm::rateMonotonic(QCustomPlot* graph_results, int max_time) {
+QString RMAlgorithm::rateMonotonic(QCustomPlot* graph_results) {
   const int kGarantyTest{garantyTest()};
   QString task_error = "";
+  std::vector<int> deadlines;
+
+  for (const auto& elem : tasks_) deadlines.push_back(elem.deadline);
+
+  int max_time = calcLCM(deadlines);
 
   if ((kGarantyTest == 0 ||  kGarantyTest == 1) && graph_results != NULL) {
     graph_results->clearGraphs();

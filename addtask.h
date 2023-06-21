@@ -10,7 +10,7 @@ class AddTask;
 
 class AddTask : public QMainWindow {
   Q_OBJECT
-    friend class MainWindow;
+  friend class MainWindow;
  public:
   explicit AddTask(QMainWindow* parent = nullptr);
   ~AddTask();
@@ -30,7 +30,9 @@ class AddTask : public QMainWindow {
 
   void on_tableWidget_cellClicked(int row, int column);
 
-  private:
+  void on_spinBox_period_textChanged(const QString& arg1);
+
+ private:
   Ui::AddTask* ui;
   QMainWindow* mainWindow_; ///< It's neccesary to manipulate the main window from this object
 };
