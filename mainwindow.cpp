@@ -68,7 +68,7 @@ void MainWindow::on_actionSend_Image_triggered() {
       sv_conn->socket_to_sv->flush();
       sv_conn->socket_to_sv->waitForBytesWritten();
       QByteArray server_response;
-      sv_conn->socket_to_sv->waitForReadyRead();
+      sv_conn->socket_to_sv->waitForReadyRead(3000);
 
       while (sv_conn->socket_to_sv->bytesAvailable() > 0)
         server_response = sv_conn->socket_to_sv->readAll();
@@ -105,7 +105,8 @@ void MainWindow::on_actionReceive_Image_triggered() {
     sv_conn->socket_to_sv->flush();
     sv_conn->socket_to_sv->waitForBytesWritten();
     ///Read the OK
-    sv_conn->socket_to_sv->waitForReadyRead();
+    message_from_server.clear();
+    sv_conn->socket_to_sv->waitForReadyRead(3000);
 
     while (sv_conn->socket_to_sv->bytesAvailable() > 0)
       message_from_server = sv_conn->socket_to_sv->readAll();
@@ -118,7 +119,8 @@ void MainWindow::on_actionReceive_Image_triggered() {
       sv_conn->socket_to_sv->flush();
       sv_conn->socket_to_sv->waitForBytesWritten();
       ///Read the list
-      sv_conn->socket_to_sv->waitForReadyRead();
+      message_from_server.clear();
+      sv_conn->socket_to_sv->waitForReadyRead(3000);
 
       while (sv_conn->socket_to_sv->bytesAvailable() > 0)
         message_from_server = sv_conn->socket_to_sv->readAll();
@@ -134,7 +136,8 @@ void MainWindow::on_actionReceive_Image_triggered() {
         sv_conn->socket_to_sv->flush();
         sv_conn->socket_to_sv->waitForBytesWritten();
         ///Receive the wanted image of the list
-        sv_conn->socket_to_sv->waitForReadyRead();
+        message_from_server.clear();
+        sv_conn->socket_to_sv->waitForReadyRead(3000);
 
         while (sv_conn->socket_to_sv->bytesAvailable() > 0)
           message_from_server = sv_conn->socket_to_sv->readAll();
@@ -152,7 +155,7 @@ void MainWindow::on_actionReceive_Image_triggered() {
           QMessageBox::critical(this, "Error: Cannot get the image", "The image from server had some problems to be read");
 
       } else
-        QMessageBox::critical(this, "Error: Cannot get the image", "Server current database has not data to retrieve");
+        QMessageBox::critical(this, "Error: Cannot get the image", "Server database didn't accept the petition");
 
     } else QMessageBox::critical(this, "Error: Cannot get the image", "Server didn't accept the transmission");
 
