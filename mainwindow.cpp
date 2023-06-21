@@ -223,3 +223,17 @@ void MainWindow::on_lineEdit_sim_name_textChanged(const QString& new_text) {
 
 
 
+
+void MainWindow::on_actionClear_graph_triggered()
+{
+  if (ui->graph_sim != nullptr) {
+    ui->graph_sim->clearGraphs();
+    ui->graph_sim->setVisible(false);
+    ui->label_sim_name->setVisible(false);
+    ui->lineEdit_sim_name->setVisible(false);
+    ui->graph_sim->replot();
+  } else {
+    QMessageBox::critical(this, "Error: no image was found", "Please do a simulation");
+  }
+}
+

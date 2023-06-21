@@ -49,7 +49,9 @@ class MainWindow : public QMainWindow {
   void on_lineEdit_sim_name_textChanged(const QString& arg1);
 
 
- private:
+  void on_actionClear_graph_triggered();
+
+  private:
   Ui::MainWindow* ui;
   SvCon* sv_conn;
   AddTask* tasks;
