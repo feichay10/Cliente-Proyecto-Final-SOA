@@ -169,7 +169,7 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_5">
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="pushButton_ignore_filters">
         <property name="text">
          <string>Ignore filters</string>
         </property>
