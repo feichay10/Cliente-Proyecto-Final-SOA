@@ -221,9 +221,6 @@ void MainWindow::on_lineEdit_sim_name_textChanged(const QString& new_text) {
   if (!(std::regex_match(new_text.toStdString(), std::regex("^[A-Za-z0-9]+$")))) ui->lineEdit_sim_name->undo();
 }
 
-
-
-
 void MainWindow::on_actionClear_graph_triggered()
 {
   if (ui->graph_sim != nullptr) {
@@ -236,4 +233,3 @@ void MainWindow::on_actionClear_graph_triggered()
     QMessageBox::critical(this, "Error: no image was found", "Please do a simulation");
   }
 }
-

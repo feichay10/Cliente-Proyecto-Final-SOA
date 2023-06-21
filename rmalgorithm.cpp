@@ -44,7 +44,7 @@ QString RMAlgorithm::rateMonotonic(QCustomPlot* graph_results) {
     std::list<Task*> runnable_tasks;
 
     while (current_time < max_time) {
-      std::cout << "T: " << current_time;
+      //std::cout << "T: " << current_time;
 
       for (int i = 0; i < tasks_.size(); ++i) {
         if (tasks_[i].just_arrived && (tasks_[i].last_entry_point + tasks_[i].period <= current_time || tasks_[i].exec_num == 0)) {
@@ -73,7 +73,7 @@ QString RMAlgorithm::rateMonotonic(QCustomPlot* graph_results) {
       }
 
       if (current_task != NULL) {
-        std::cout << " - Executing " << current_task->name.toStdString() << current_task->exec_num << " remaining time: " << current_task ->remaining_time;
+        //std::cout << " - Executing " << current_task->name.toStdString() << current_task->exec_num << " remaining time: " << current_task ->remaining_time;
         graph_results->graph(current_task->graph_pos)->addData((double)current_time, (double)current_task->graph_pos + 1);
         current_task->remaining_time--;
 
@@ -85,7 +85,7 @@ QString RMAlgorithm::rateMonotonic(QCustomPlot* graph_results) {
         }
       }
 
-      std::cout << std::endl;
+      //std::cout << std::endl;
       ++current_time;
     }
 
@@ -105,7 +105,7 @@ int RMAlgorithm::garantyTest() {
     for (const auto& task : tasks_)
       use_factor += task.timeTask / (double)task.period;
 
-    std::cout << use_factor << std::endl;
+    //std::cout << use_factor << std::endl;
 
     if (Less(use_factor, upper_limit)) {
       return 0; ///<Planificable
