@@ -19,8 +19,11 @@ class Filter : public QDialog {
  private slots:
 
   void on_lineEdit_name_textChanged(const QString& arg1);
+  void on_pushButton_accept_clicked();
 
- private:
+  void on_pushButton_ignore_filters_clicked();
+
+  private:
   Ui::Filter* ui;
 };
 

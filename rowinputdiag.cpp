@@ -25,3 +25,9 @@ void rowInputDiag::on_spinBox_row_wanted_valueChanged(int val) {
   if (std::find(rows_allowed.begin(), rows_allowed.end(), val) == rows_allowed.end()) ui->spinBox_row_wanted->setValue(rows_allowed[0]);
 }
 
+
+void rowInputDiag::on_pushButton_clicked()
+{
+  close();
+}
+

@@ -18,6 +18,8 @@ class rowInputDiag : public QDialog {
  private slots:
   void on_spinBox_row_wanted_valueChanged(int val);
 
+     void on_pushButton_clicked();
+
  private:
   Ui::rowInputDiag* ui;
   std::string ok_rows_;
