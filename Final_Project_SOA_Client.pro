@@ -27,6 +27,7 @@ HEADERS += \
 
 FORMS += \
     addtask.ui \
+    filter_image.ui \
     mainwindow.ui \
     svcon.ui
 
