@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     addtask.cpp \
+    filter.cpp \
     lib_flot.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
 
 HEADERS += \
     addtask.h \
+    filter.h \
     lib_flot.h \
     mainwindow.h \
     rmalgorithm.h \
@@ -27,7 +29,7 @@ HEADERS += \
 
 FORMS += \
     addtask.ui \
-    filter_image.ui \
+    filter.ui \
     mainwindow.ui \
     svcon.ui
 

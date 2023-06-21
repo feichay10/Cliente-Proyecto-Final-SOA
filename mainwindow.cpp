@@ -112,7 +112,14 @@ void MainWindow::on_actionReceive_Image_triggered() {
 
     if (message_from_server.toStdString() == "OK") {
       ///Send the filters
-      sv_conn->socket_to_sv->write("ONAM|3|Wed Jun 21 10:04:13 2023");
+      Filter filter_diag;
+      // (optional) myInstance.setAttribute(Qt::WA_DeleteOnClose);
+      filter_diag.exec();
+      // This loop will wait for the window is destroyed
+      //QEventLoop loop;
+      //connect(this, SIGNAL(destroyed()), & loop, SLOT(quit()));
+      //loop.exec();
+      sv_conn->socket_to_sv->write((filter_diag.findChild<QLineEdit*>("lineEdit_name")->text() + "|" + filter_diag.findChild<QSpinBox*>("spinBox_num_tasks")->text() + "|" + filter_diag.findChild<QDateTimeEdit*>("dateTimeEdit")->text()).toStdString().c_str());
       sv_conn->socket_to_sv->flush();
       sv_conn->socket_to_sv->waitForBytesWritten();
       ///Read the list
