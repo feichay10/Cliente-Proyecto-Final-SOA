@@ -39,6 +39,11 @@ The `Run simulation` option, on the *Simulation tab*, allows to run the simulati
 
 ![Screenshot of a simulation example](./CheddarPP_Client_Images/Image_Simulation.png)
 
+### Receive an image
+To receive an image we have a windows filter to search what plannification we want we can filter using the `Name of the scheduling`, the `Number or tasks` and the `Date when the scheduling was done`. Once the filter data is entered, a new window will appear with the possible schedules (index) according to the data entered previously.
+
+![Gif of receive an image](./CheddarPP_Client_Images/gif_filter.gif)
+
 ## TCP Client
 The TCP client is the main class of the program. It is in charge of connecting to the server, sending and receiving messages from the server. It is also in charge of sending and receiving images from the server. It is also in charge of running the simulation of the tasks that we have introduced. To connect to the server we have the icon and if we press it, it will display a window that allows us to introduce the IP and the port of the server that we want to connect to. If we press the `Connect` button, it will connect to the server. If we press the `Disconnect` button, it will disconnect from the server.
 
