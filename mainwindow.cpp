@@ -41,7 +41,7 @@ void MainWindow::on_actionExit_triggered() {
 }
 
 void MainWindow::on_actionAbout_Cheddar_Client_triggered() {
-  QMessageBox::information(this, "About Cheddar++ Client", "this message must be filled in the end of the development of the app");
+  QMessageBox::information(this, "About Cheddar++ Client", "This is a real-time scheduler simulator inspired by Cheddar. It was done using QT Creator framework (version 6.5.1). This program acts as a client and connects (via TCP) to the server to introduce and retrieve data to/from the database. The main function of this program simulates a real-time scheduler the Rate Monothonic algorithm. At the same time, it can send/receive images to/from the server.");
 }
 
 
@@ -125,7 +125,7 @@ void MainWindow::on_actionReceive_Image_triggered() {
 
       std::string wishlist = message_from_server.toStdString();
 
-      if (wishlist != "X") {
+      if (wishlist.size() > 0 && wishlist != "X") {
         bool ok;
         rowInputDiag input_diag(this, wishlist);
         input_diag.exec();
