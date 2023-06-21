@@ -149,8 +149,11 @@ void MainWindow::on_actionReceive_Image_triggered() {
 
 void MainWindow::on_actionRun_simulation_triggered() {
   RMAlgorithm rm_algorithm(findChild<QTableWidget*>("tableWidget"));
+  auto garanty_test_val = rm_algorithm.garantyTest();
 
-  switch (rm_algorithm.garantyTest()) {
+  if (garanty_test_val != -1) ui->textEdit_messages->insertPlainText((std::string("\nGaranty test results: ") + std::to_string(garanty_test_val)).c_str());
+
+  switch (garanty_test_val) {
     case -1:
       QMessageBox::critical(this, "Error: there are no tasks", "Please, check the tasks list and add some tasks");
       break;
