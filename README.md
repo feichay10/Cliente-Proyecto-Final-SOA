@@ -21,6 +21,8 @@ In addition, we can see different icons on the left side of the window that allo
 - `Clear graph`: This icon allows us to clear the simulation graph.
 - `Exit`: This icon allows us to exit the program.
 
+(gif_MainWindow)
+
 ### File transferences 
 It displayed and we can see three options: `Send image`, `Receive image` and `Connection`. It works as equal as the icons that we have explained before.
 
@@ -29,11 +31,13 @@ It displayed and we can see three options: `Send image`, `Receive image` and `Co
 ### Simulation
 It displayed and we can see two options: `Tasks` and `Run simulation`. The `Tasks` option it display a windows that allows us to introduce the tasks that we want to simulate. In this window we can see the following options:
 
-(image_SimulationTasks)
+(image_TaskAdder)
 
 We can introduce the tasks that we want to simulate with a "Name task", "Time of Task", "Period" and "Deadline". In addition, we can see two buttons: `Add task` and `Clean list`. The `Add task` button allows us to add a new task to a table to see all the tasks that we have introduced. The `Clean list` button allows us to clean the task that we have introduced. Besides, we can see a `Delete Task` button that allows us to delete a task from the table by clicking on the task/row that we want to delete.
 
 The `Run simulation` option, on the *Simulation tab*, allows to run the simulation of the tasks that we have introduced. The same as the `Run simulation` icon that we have explained before.
+
+(image_Simulation)
 
 ## TCP Client
 The TCP client is the main class of the program. It is in charge of connecting to the server, sending and receiving messages from the server. It is also in charge of sending and receiving images from the server. It is also in charge of running the simulation of the tasks that we have introduced. To connect to the server we have the icon and if we press it, it will display a window that allows us to introduce the IP and the port of the server that we want to connect to. If we press the `Connect` button, it will connect to the server. If we press the `Disconnect` button, it will disconnect from the server.
