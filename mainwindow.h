@@ -11,6 +11,8 @@
 #include <QLabel>
 #include <QTextStream>
 #include <QInputDialog>
+#include <QUrl>
+#include <QDesktopServices>
 #include "addtask.h"
 #include "rmalgorithm.h"
 #include "qcustomplot.h"
