@@ -122,11 +122,10 @@ void MainWindow::on_actionReceive_Image_triggered() {
       message_from_server = sv_conn->socket_to_sv->readAll();
 
     std::string wishlist = message_from_server.toStdString();
-    QMessageBox::information(this, "List", wishlist.c_str());
-    ///Select a valid line
-    ///while () {
-    /// }
-    int wanted_line = 2;
+    bool ok;
+    QInputDialog input;
+    input.setOkButtonText("Receive");
+    int wanted_line = input.getInt(this, "List of receivable images", wishlist.c_str(), 0, 0, std::count(wishlist.begin(), wishlist.end(), '\n') - 1);
     sv_conn->socket_to_sv->write(std::to_string(wanted_line).c_str());
     sv_conn->socket_to_sv->flush();
     sv_conn->socket_to_sv->waitForBytesWritten();
@@ -142,8 +141,8 @@ void MainWindow::on_actionReceive_Image_triggered() {
     if (delivery_success) {
       QPixmap pixmap_image_server = QPixmap::fromImage(image_from_server);
       ui->textEdit_messages->insertPlainText("\nThe server sent an image");
-      ui->label_Image_Simulation->resize(pixmap_image_server.width(), pixmap_image_server.height());
-      ui->label_Image_Simulation->setPixmap(pixmap_image_server);
+      ui->label_ImgFromSv->resize(pixmap_image_server.width(), pixmap_image_server.height());
+      ui->label_ImgFromSv->setPixmap(pixmap_image_server);
 
     } else
       QMessageBox::critical(this, "Error: Cannot get the image", "The image from server had some problems to be read");

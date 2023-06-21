@@ -10,6 +10,7 @@
 #include <QBuffer>
 #include <QLabel>
 #include <QTextStream>
+#include <QInputDialog>
 #include "addtask.h"
 #include "rmalgorithm.h"
 #include "qcustomplot.h"
