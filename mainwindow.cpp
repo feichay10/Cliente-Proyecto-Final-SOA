@@ -61,15 +61,6 @@ void MainWindow::on_actionTasks_triggered() {
   tasks->setEnabled(true);
 }
 
-// // Abrir archivo de foto
-//QString nameFile = QFileDialog::getOpenFileName(this, "Abrir imagen", QDir::rootPath(), "Imágenes (*.png *.jpg *.jpeg);;Cualquier archivo(*.*)");
-//ui->lineEdit_image->setText(nameFile);
-//QPixmap pixmap(ui->lineEdit_image->text());
-// // set a scaled pixmap
-//ui->imageLabel->resize(pixmap.width(), pixmap.height());
-//ui->imageLabel->setPixmap(pixmap.scaled(pixmap.width(),pixmap.height(),Qt::KeepAspectRatio));
-
-
 void MainWindow::on_actionSend_Image_triggered() {
   if (sv_conn != NULL && sv_conn->socket_to_sv != NULL && sv_conn->socket_to_sv->isOpen()) {
     if (ui->graph_sim->isVisible()) {
@@ -113,37 +104,55 @@ void MainWindow::on_actionReceive_Image_triggered() {
     sv_conn->socket_to_sv->write("RECEIVE_IMG");
     sv_conn->socket_to_sv->flush();
     sv_conn->socket_to_sv->waitForBytesWritten();
-    ///Read the list
+    ///Read the OK
     sv_conn->socket_to_sv->waitForReadyRead();
 
     while (sv_conn->socket_to_sv->bytesAvailable() > 0)
       message_from_server = sv_conn->socket_to_sv->readAll();
 
-    std::string wishlist = message_from_server.toStdString();
-    bool ok;
-    QInputDialog input;
-    input.setOkButtonText("Receive");
-    int wanted_line = input.getInt(this, "List of receivable images", wishlist.c_str(), 0, 0, std::count(wishlist.begin(), wishlist.end(), '\n') - 1);
-    sv_conn->socket_to_sv->write(std::to_string(wanted_line).c_str());
-    sv_conn->socket_to_sv->flush();
-    sv_conn->socket_to_sv->waitForBytesWritten();
-    ///Receive the wanted image of the list
-    sv_conn->socket_to_sv->waitForReadyRead();
+    if (message_from_server.toStdString() == "OK") {
+      ///Send the filters
+      sv_conn->socket_to_sv->write("ONAM|3|Wed Jun 21 10:04:13 2023");
+      sv_conn->socket_to_sv->flush();
+      sv_conn->socket_to_sv->waitForBytesWritten();
+      ///Read the list
+      sv_conn->socket_to_sv->waitForReadyRead();
 
-    while (sv_conn->socket_to_sv->bytesAvailable() > 0)
-      message_from_server = sv_conn->socket_to_sv->readAll();
+      while (sv_conn->socket_to_sv->bytesAvailable() > 0)
+        message_from_server = sv_conn->socket_to_sv->readAll();
 
-    QImage image_from_server;
-    bool delivery_success = image_from_server.loadFromData(message_from_server);
+      std::string wishlist = message_from_server.toStdString();
 
-    if (delivery_success) {
-      QPixmap pixmap_image_server = QPixmap::fromImage(image_from_server);
-      ui->textEdit_messages->insertPlainText("\nThe server sent an image");
-      ui->label_ImgFromSv->resize(pixmap_image_server.width(), pixmap_image_server.height());
-      ui->label_ImgFromSv->setPixmap(pixmap_image_server);
+      if (wishlist != "X") {
+        bool ok;
+        QInputDialog input;
+        input.setOkButtonText("Receive");
+        int wanted_line = input.getInt(this, "List of receivable images", wishlist.c_str(), 0, 0, std::count(wishlist.begin(), wishlist.end(), '\n') - 1);
+        sv_conn->socket_to_sv->write(std::to_string(wanted_line).c_str());
+        sv_conn->socket_to_sv->flush();
+        sv_conn->socket_to_sv->waitForBytesWritten();
+        ///Receive the wanted image of the list
+        sv_conn->socket_to_sv->waitForReadyRead();
 
-    } else
-      QMessageBox::critical(this, "Error: Cannot get the image", "The image from server had some problems to be read");
+        while (sv_conn->socket_to_sv->bytesAvailable() > 0)
+          message_from_server = sv_conn->socket_to_sv->readAll();
+
+        QImage image_from_server;
+        bool delivery_success = image_from_server.loadFromData(message_from_server);
+
+        if (delivery_success) {
+          QPixmap pixmap_image_server = QPixmap::fromImage(image_from_server);
+          ui->textEdit_messages->insertPlainText("\nThe server sent an image");
+          ui->label_ImgFromSv->resize(pixmap_image_server.width(), pixmap_image_server.height());
+          ui->label_ImgFromSv->setPixmap(pixmap_image_server);
+
+        } else
+          QMessageBox::critical(this, "Error: Cannot get the image", "The image from server had some problems to be read");
+
+      } else
+        QMessageBox::critical(this, "Error: Cannot get the image", "Server current database has not data to retrieve");
+
+    } else QMessageBox::critical(this, "Error: Cannot get the image", "Server didn't accept the transmission");
 
   } else QMessageBox::critical(this, "ERROR: Image cannot be received correctly", "Nothing can be received; check Connection button, then try again...");
 }
