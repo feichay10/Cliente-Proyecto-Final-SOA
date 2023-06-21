@@ -46,9 +46,7 @@ void MainWindow::on_actionAbout_Cheddar_Client_triggered() {
 
 
 void MainWindow::on_actionManual_triggered() {
-  // QMessageBox::information(this, "Manual", "this message must be filled in the end of the development of the app");
-
-  QString link = "https://doc.qt.io/qt-6/qurl.html";
+  QString link = "https://github.com/feichay10/Cliente-Proyecto-Final-SOA/blob/main/README.md";
   QDesktopServices::openUrl(QUrl(link));
 }
 
